@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>UI Events Viewer</title>
+	
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:400,400i,700&amp;subset=latin-ext" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="assets/style.css"></link>
+
+</head>
+<body>
+	<header>
+		<h1>UI Events Viewer</h1>
+		<nav>
+			<ul>
+				<li><a href='README.md'>README</a></li>
+				<li><a href='https://github.com/danburzo/input-methods'>Source code on GitHub</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<div class='flex__container'>
+		<div class='flex__item'>
+			<h1>Simple DOM contenteditable</h1>
+			<div id="rte--raw" contenteditable class="rte" role="textbox">Hello World</div>
+		</div>
+		
+		<div class='flex__item'>
+			<h1>React-managed contenteditable</h1>
+			<div id="rte__wrapper--react"></div>
+		</div>
+	</div>
+
+	<div class="logger">
+		
+	</div>
+
+	<script type="text/javascript" src="dist/bundle.js"></script>
+</body>
+</html>
