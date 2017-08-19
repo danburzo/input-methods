@@ -45,9 +45,13 @@ export default class EventLogger extends React.Component {
 			<tbody>
 			{ 
 				logs.map(entry => 
-					<tr key={entry.index} className={'logger__row logger__row--' + entry.kind }>
+					<tr key={entry.index} className={
+						'logger__row logger__row--' + entry.kind + (
+							entry.isNativeCounterpart ? ' logger__row--native-counterpart' : ''
+						)
+					}>
 						
-						<td>{entry.index}</td>
+						<td>{entry.isNativeCounterpart ? '⮑' : entry.index}</td>
 						<td>{this.renderValue(entry.kind)}</td>
 						<td>{this.renderValue(entry.type)}</td>
 

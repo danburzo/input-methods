@@ -8,8 +8,17 @@ import { Stack } from 'immutable';
 
 let logs = new Stack(), logger_el, STACK_LIMIT = 100;
 
+const add_log = item => {
+	logs = logs.push(item).slice(0, STACK_LIMIT);
+}
+
 const log_event = e => {
-	logs = logs.push(serializeEvent(e)).slice(0, STACK_LIMIT);
+
+	if (e.nativeEvent) {
+		add_log(serializeEvent(e.nativeEvent, true));
+	}
+	add_log(serializeEvent(e));
+
 	if (logger_el) {
 		logger_el.setState({ logs });
 	}

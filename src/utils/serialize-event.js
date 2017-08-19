@@ -1,10 +1,13 @@
 let key = 1;
 
-export default e => {
+export default (e, isNativeCounterpart) => {
+
+	const index = isNativeCounterpart ? `⮑ ${key}` : key++;
+
 	const ret = {
 		kind: e.constructor.name,
-		index: key++,
-		type: e.type
+		index: index,
+		isNativeCounterpart: isNativeCounterpart
 	};
 
 	[

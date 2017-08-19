@@ -97,6 +97,11 @@ table caption {
 	border-color: #ccc0ae;
 }
 
+.logger__row--native-counterpart {
+	font-size: 0.9em;
+	color: #777;
+}
+
 .logger__table pre, 
 .logger__table code,
 .logger__table kbd {

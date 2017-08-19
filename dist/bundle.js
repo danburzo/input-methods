@@ -9782,8 +9782,17 @@ var logs = new _immutable.Stack(),
     logger_el = void 0,
     STACK_LIMIT = 100;
 
+var add_log = function add_log(item) {
+	logs = logs.push(item).slice(0, STACK_LIMIT);
+};
+
 var log_event = function log_event(e) {
-	logs = logs.push((0, _serializeEvent2.default)(e)).slice(0, STACK_LIMIT);
+
+	if (e.nativeEvent) {
+		add_log((0, _serializeEvent2.default)(e.nativeEvent, true));
+	}
+	add_log((0, _serializeEvent2.default)(e));
+
 	if (logger_el) {
 		logger_el.setState({ logs: logs });
 	}
@@ -9970,11 +9979,11 @@ var EventLogger = function (_React$Component) {
 					logs.map(function (entry) {
 						return _react2.default.createElement(
 							'tr',
-							{ key: entry.index, className: 'logger__row logger__row--' + entry.kind },
+							{ key: entry.index, className: 'logger__row logger__row--' + entry.kind + (entry.isNativeCounterpart ? ' logger__row--native-counterpart' : '') },
 							_react2.default.createElement(
 								'td',
 								null,
-								entry.index
+								entry.isNativeCounterpart ? '⮑' : entry.index
 							),
 							_react2.default.createElement(
 								'td',
@@ -12662,11 +12671,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 var key = 1;
 
-exports.default = function (e) {
+exports.default = function (e, isNativeCounterpart) {
+
+	var index = isNativeCounterpart ? '\u2B91 ' + key : key++;
+
 	var ret = {
 		kind: e.constructor.name,
-		index: key++,
-		type: e.type
+		index: index,
+		isNativeCounterpart: isNativeCounterpart
 	};
 
 	[
