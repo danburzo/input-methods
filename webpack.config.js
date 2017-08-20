@@ -1,7 +1,7 @@
 module.exports = {
-	entry: './src/index.js',
+	entry: './ui-event-viewer/src/index.js',
 	output: {
-		filename: `./dist/bundle.js`
+		filename: `./ui-event-viewer/dist/bundle.js`
 	},
 	module: {
 		rules: [
