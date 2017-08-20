@@ -9922,20 +9922,24 @@ var EventLogger = function (_React$Component) {
 								'1'
 							),
 							' refers to properties present in both KeyboardEvent and InputEvent.'
-						)
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						_react2.default.createElement(
-							'button',
-							{ onClick: this.props.insertSeparator },
-							'Insert separator \u2195'
 						),
 						_react2.default.createElement(
-							'button',
-							{ onClick: this.props.clearLog },
-							'Clear log \u267A'
+							'li',
+							null,
+							_react2.default.createElement(
+								'button',
+								{ onClick: this.props.insertSeparator },
+								'Insert separator \u2195'
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							_react2.default.createElement(
+								'button',
+								{ onClick: this.props.clearLog },
+								'Clear log \u267A'
+							)
 						)
 					)
 				),

@@ -18,11 +18,9 @@ export default class EventLogger extends React.Component {
 					<li>{this.renderBoolean(false)} = false</li>
 					<li>{this.renderBoolean(undefined)} = null or undefined</li>
 					<li><sup>1</sup> refers to properties present in both KeyboardEvent and InputEvent.</li>
+					<li><button onClick={this.props.insertSeparator}>Insert separator ↕</button></li>
+					<li><button onClick={this.props.clearLog}>Clear log ♺</button></li>
 				</ul>
-				<div>
-					<button onClick={this.props.insertSeparator}>Insert separator ↕</button>
-					<button onClick={this.props.clearLog}>Clear log ♺</button>
-				</div>
 			</caption>
 			<thead>
 				<tr>
