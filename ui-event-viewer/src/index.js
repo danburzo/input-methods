@@ -3,7 +3,7 @@ import EventLogger from './components/EventLogger';
 import EventListenerRaw from './components/EventListenerRaw';
 import EventListenerReact from './components/EventListenerReact';
 import serializeEvent from './utils/serialize-event';
-import { getNextKey } from './utils/generate-key'; 
+import { getNextKey, resetKey } from './utils/generate-key'; 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Stack } from 'immutable';
@@ -26,6 +26,7 @@ const log_event = (e, callbackName) => {
 
 const clear_log = () => {
 	logs = new Stack();
+	resetKey();
 	render_logs();
 }
 

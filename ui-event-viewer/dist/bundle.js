@@ -7211,6 +7211,9 @@ var getKey = exports.getKey = function getKey() {
 var getNextKey = exports.getNextKey = function getNextKey() {
   return key++;
 };
+var resetKey = exports.resetKey = function resetKey() {
+  return key = 1;
+};
 
 /***/ }),
 /* 58 */
@@ -9818,6 +9821,7 @@ var log_event = function log_event(e, callbackName) {
 
 var clear_log = function clear_log() {
 	logs = new _immutable.Stack();
+	(0, _generateKey.resetKey)();
 	render_logs();
 };
 
