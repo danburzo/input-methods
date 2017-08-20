@@ -1,11 +1,13 @@
 # Input Methods
 
-## [macOS](./macos/README.md)
+Input methods are organized by operating system:
 
-## [Windows](./windows/README.md)
+## [macOS](./macos/)
 
-## [Linux](./linux/README.md)
+## [Windows](./windows/)
 
-## [iOS](./ios/README.md)
+## [Linux](./linux/)
 
-## [Android](./android/README.md)
+## [iOS](./ios/)
+
+## [Android](./android/)

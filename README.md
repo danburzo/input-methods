@@ -12,7 +12,7 @@ Can be used to inspect the various keyboard / input / composition events that ge
 
 ## Input methods
 
-The [`methods`](./methods/README.md) folder organizes input methods by operating system.
+The [`methods`](./methods/) folder organizes input methods by operating system.
 
 ## Specifications
 
