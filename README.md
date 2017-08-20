@@ -10,6 +10,10 @@ https://danburzo.github.io/input-methods/index.html
 
 Can be used to inspect the various keyboard / input / composition events that get triggered on a contenteditable element, using either the native DOM APIs or the React.js-polyfilled ones. It takes a cue from the excellent [Keyboard Event Viewer](https://w3c.github.io/uievents/tools/key-event-viewer.html).
 
+## Input methods
+
+The [`methods`](./methods/README.md) folder organizes input methods by operating system.
+
 ## Specifications
 
 * [Input Events Level 2](https://w3c.github.io/input-events/index.html)
@@ -35,3 +39,7 @@ Does not fire `beforeinput` — [issue here](https://bugzilla.mozilla.org/show_b
 
 * [IME Test](https://github.com/Microsoft/vscode/wiki/IME-Test) from the VSCode Github repository.
 * [Keyboard Event Viewer](https://w3c.github.io/uievents/tools/key-event-viewer.html)
+
+## Contributing
+
+See [`Contributing.md`](./Contributing.md) for ways to contribute — much appreciated!
