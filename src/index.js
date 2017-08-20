@@ -12,12 +12,12 @@ const add_log = item => {
 	logs = logs.push(item).slice(0, STACK_LIMIT);
 }
 
-const log_event = e => {
+const log_event = (e, callbackName) => {
 
 	if (e.nativeEvent) {
-		add_log(serializeEvent(e.nativeEvent, true));
+		add_log(serializeEvent(e.nativeEvent, null, true));
 	}
-	add_log(serializeEvent(e));
+	add_log(serializeEvent(e, callbackName));
 
 	if (logger_el) {
 		logger_el.setState({ logs });

@@ -9786,12 +9786,12 @@ var add_log = function add_log(item) {
 	logs = logs.push(item).slice(0, STACK_LIMIT);
 };
 
-var log_event = function log_event(e) {
+var log_event = function log_event(e, callbackName) {
 
 	if (e.nativeEvent) {
-		add_log((0, _serializeEvent2.default)(e.nativeEvent, true));
+		add_log((0, _serializeEvent2.default)(e.nativeEvent, null, true));
 	}
-	add_log((0, _serializeEvent2.default)(e));
+	add_log((0, _serializeEvent2.default)(e, callbackName));
 
 	if (logger_el) {
 		logger_el.setState({ logs: logs });
@@ -9988,7 +9988,7 @@ var EventLogger = function (_React$Component) {
 							_react2.default.createElement(
 								'td',
 								null,
-								_this2.renderValue(entry.kind)
+								_this2.renderKind(entry.kind, entry.origin)
 							),
 							_react2.default.createElement(
 								'td',
@@ -10059,6 +10059,25 @@ var EventLogger = function (_React$Component) {
 				{ className: 'bool bool--undefined', title: 'null/undefined' },
 				'\u2205'
 			);
+		}
+	}, {
+		key: 'renderKind',
+		value: function renderKind(kind, origin) {
+			return kind ? _react2.default.createElement(
+				'pre',
+				null,
+				_react2.default.createElement(
+					'code',
+					null,
+					kind,
+					' ',
+					origin ? _react2.default.createElement(
+						'span',
+						{ className: 'origin' },
+						origin
+					) : null
+				)
+			) : this.renderBoolean(undefined);
 		}
 	}]);
 
@@ -12622,9 +12641,11 @@ var EventListenerReact = function (_React$Component) {
 		value: function render() {
 			var onevent = this.props.onevent;
 
-			var handle_event = function handle_event(syntheticEvent) {
-				syntheticEvent.persist();
-				onevent(syntheticEvent);
+			var handle_event = function handle_event(callbackName) {
+				return function (syntheticEvent) {
+					syntheticEvent.persist();
+					onevent(syntheticEvent, callbackName);
+				};
 			};
 
 			return _react2.default.createElement(
@@ -12635,18 +12656,18 @@ var EventListenerReact = function (_React$Component) {
 					contentEditable: true,
 					role: 'textbox',
 
-					onKeyDown: handle_event,
-					onKeyPress: handle_event,
-					onKeyUp: handle_event,
+					onKeyDown: handle_event('onKeyDown'),
+					onKeyPress: handle_event('onKeyPress'),
+					onKeyUp: handle_event('onKeyUp'),
 
-					onCompositionStart: handle_event,
-					onCompositionUpdate: handle_event,
-					onCompositionEnd: handle_event,
+					onCompositionStart: handle_event('onCompositionStart'),
+					onCompositionUpdate: handle_event('onCompositionUpdate'),
+					onCompositionEnd: handle_event('onCompositionEndmposi'),
 
-					onBeforeInput: handle_event,
-					onInput: handle_event,
+					onBeforeInput: handle_event('onBeforeInput'),
+					onInput: handle_event('onInput'),
 
-					onSelect: handle_event
+					onSelect: handle_event('onSelect')
 
 				},
 				'Hello World'
@@ -12671,7 +12692,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var key = 1;
 
-exports.default = function (e, isNativeCounterpart) {
+exports.default = function (e, callbackName, isNativeCounterpart) {
 
 	var index = isNativeCounterpart ? '\u2B91 ' + key : key++;
 
@@ -12680,6 +12701,10 @@ exports.default = function (e, isNativeCounterpart) {
 		index: index,
 		isNativeCounterpart: isNativeCounterpart
 	};
+
+	if (callbackName) {
+		ret.origin = callbackName;
+	}
 
 	[
 	// Event interface

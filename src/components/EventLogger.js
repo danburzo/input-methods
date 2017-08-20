@@ -52,7 +52,7 @@ export default class EventLogger extends React.Component {
 					}>
 						
 						<td>{entry.isNativeCounterpart ? '⮑' : entry.index}</td>
-						<td>{this.renderValue(entry.kind)}</td>
+						<td>{this.renderKind(entry.kind, entry.origin)}</td>
 						<td>{this.renderValue(entry.type)}</td>
 
 						<td>{this.renderValue(entry.key)}</td>
@@ -82,5 +82,11 @@ export default class EventLogger extends React.Component {
 			flag === false ?
 				<span className='bool bool--false' title='false'>&times;</span> :
 				<span className='bool bool--undefined' title='null/undefined'>∅</span>
+	}
+
+	renderKind(kind, origin) {
+		return kind ? 
+			<pre><code>{kind} {origin ? <span className='origin'>{origin}</span> : null}</code></pre> :
+			this.renderBoolean(undefined)
 	}
 }

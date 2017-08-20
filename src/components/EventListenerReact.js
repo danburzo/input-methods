@@ -9,9 +9,9 @@ export default class EventListenerReact extends React.Component {
 	render() {
 
 		let { onevent } = this.props;
-		let handle_event = (syntheticEvent) => {
+		let handle_event = callbackName => syntheticEvent => {
 			syntheticEvent.persist();
-			onevent(syntheticEvent);
+			onevent(syntheticEvent, callbackName);
 		}
 
 		return <div 
@@ -20,18 +20,18 @@ export default class EventListenerReact extends React.Component {
 			contentEditable 
 			role="textbox"
 
-			onKeyDown={handle_event}
-			onKeyPress={handle_event}
-			onKeyUp={handle_event}
+			onKeyDown={handle_event('onKeyDown')}
+			onKeyPress={handle_event('onKeyPress')}
+			onKeyUp={handle_event('onKeyUp')}
 			
-			onCompositionStart={handle_event}
-			onCompositionUpdate={handle_event}
-			onCompositionEnd={handle_event}
+			onCompositionStart={handle_event('onCompositionStart')}
+			onCompositionUpdate={handle_event('onCompositionUpdate')}
+			onCompositionEnd={handle_event('onCompositionEndmposi')}
 
-			onBeforeInput={handle_event}
-			onInput={handle_event}
+			onBeforeInput={handle_event('onBeforeInput')}
+			onInput={handle_event('onInput')}
 
-			onSelect={handle_event}
+			onSelect={handle_event('onSelect')}
 
 		>Hello World</div>;
 	}

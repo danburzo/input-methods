@@ -125,6 +125,11 @@ table caption {
 	color: orange;
 }
 
+.origin {
+	font-size: 0.8em;
+	color: #777;
+}
+
 .flex__container {
 	display: flex;
 	width: 100%;

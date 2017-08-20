@@ -1,6 +1,6 @@
 let key = 1;
 
-export default (e, isNativeCounterpart) => {
+export default (e, callbackName, isNativeCounterpart) => {
 
 	const index = isNativeCounterpart ? `⮑ ${key}` : key++;
 
@@ -9,6 +9,10 @@ export default (e, isNativeCounterpart) => {
 		index: index,
 		isNativeCounterpart: isNativeCounterpart
 	};
+
+	if (callbackName) {
+		ret.origin = callbackName;
+	}
 
 	[
 		// Event interface
