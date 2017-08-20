@@ -1,8 +1,8 @@
-let key = 1;
+import { getKey, getNextKey } from './generate-key';
 
 export default (e, callbackName, isNativeCounterpart) => {
 
-	const index = isNativeCounterpart ? `⮑ ${key}` : key++;
+	const index = isNativeCounterpart ? `⮑ ${getKey()}` : getNextKey();
 
 	const ret = {
 		kind: e.constructor.name,

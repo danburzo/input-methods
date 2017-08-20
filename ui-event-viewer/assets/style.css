@@ -103,6 +103,14 @@ table caption {
 	background-color: #fff;
 }
 
+.logger__row--separator {
+	background-color: #eee;
+}
+
+.logger__row--separator * {
+	color: #999 !important;
+}
+
 .logger__table pre, 
 .logger__table code,
 .logger__table kbd {
