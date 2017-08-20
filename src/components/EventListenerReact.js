@@ -26,7 +26,7 @@ export default class EventListenerReact extends React.Component {
 			
 			onCompositionStart={handle_event('onCompositionStart')}
 			onCompositionUpdate={handle_event('onCompositionUpdate')}
-			onCompositionEnd={handle_event('onCompositionEndmposi')}
+			onCompositionEnd={handle_event('onCompositionEnd')}
 
 			onBeforeInput={handle_event('onBeforeInput')}
 			onInput={handle_event('onInput')}
