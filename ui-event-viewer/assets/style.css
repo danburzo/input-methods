@@ -44,7 +44,7 @@ table caption {
 }
 
 .rte {
-	-webkit-user-modify: read-write-plaintext-only;
+	/*-webkit-user-modify: read-write-plaintext-only;*/
 	border: 1px solid lightGray;
 	padding: 0.5em;
 	outline: none;
