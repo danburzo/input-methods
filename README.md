@@ -1,5 +1,7 @@
 # Input methods
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/danburzo/input-methods.svg)](https://greenkeeper.io/)
+
 ## Introduction
 
 The purpose of this repository is to document various input methods / IMEs, how to install them, and the UI Events they trigger in the browser. 
