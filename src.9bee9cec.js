@@ -103,7 +103,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({32:[function(require,module,exports) {
+})({28:[function(require,module,exports) {
 /*
 object-assign
 (c) Sindre Sorhus
@@ -194,7 +194,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 	return to;
 };
-},{}],33:[function(require,module,exports) {
+},{}],30:[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -248,7 +248,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 }
 
 module.exports = invariant;
-},{}],34:[function(require,module,exports) {
+},{}],29:[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -266,7 +266,7 @@ if ('development' !== 'production') {
 }
 
 module.exports = emptyObject;
-},{}],36:[function(require,module,exports) {
+},{}],31:[function(require,module,exports) {
 "use strict";
 
 /**
@@ -303,7 +303,7 @@ emptyFunction.thatReturnsArgument = function (arg) {
 };
 
 module.exports = emptyFunction;
-},{}],35:[function(require,module,exports) {
+},{}],32:[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -366,7 +366,7 @@ if ('development' !== 'production') {
 }
 
 module.exports = warning;
-},{"./emptyFunction":36}],44:[function(require,module,exports) {
+},{"./emptyFunction":31}],47:[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -380,7 +380,7 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
 module.exports = ReactPropTypesSecret;
 
-},{}],37:[function(require,module,exports) {
+},{}],33:[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -440,7 +440,7 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
 }
 
 module.exports = checkPropTypes;
-},{"fbjs/lib/invariant":33,"fbjs/lib/warning":35,"./lib/ReactPropTypesSecret":44}],29:[function(require,module,exports) {
+},{"fbjs/lib/invariant":30,"fbjs/lib/warning":32,"./lib/ReactPropTypesSecret":47}],22:[function(require,module,exports) {
 /** @license React v16.4.1
  * react.development.js
  *
@@ -1921,7 +1921,7 @@ if ('development' !== "production") {
     module.exports = react;
   })();
 }
-},{"object-assign":32,"fbjs/lib/invariant":33,"fbjs/lib/emptyObject":34,"fbjs/lib/warning":35,"fbjs/lib/emptyFunction":36,"prop-types/checkPropTypes":37}],22:[function(require,module,exports) {
+},{"object-assign":28,"fbjs/lib/invariant":30,"fbjs/lib/emptyObject":29,"fbjs/lib/warning":32,"fbjs/lib/emptyFunction":31,"prop-types/checkPropTypes":33}],15:[function(require,module,exports) {
 'use strict';
 
 if ('development' === 'production') {
@@ -1929,7 +1929,7 @@ if ('development' === 'production') {
 } else {
   module.exports = require('./cjs/react.development.js');
 }
-},{"./cjs/react.development.js":29}],12:[function(require,module,exports) {
+},{"./cjs/react.development.js":22}],10:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1953,15 +1953,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var EventLogger = function (_React$Component) {
 	_inherits(EventLogger, _React$Component);
 
-	function EventLogger(props) {
+	function EventLogger() {
 		_classCallCheck(this, EventLogger);
 
-		var _this = _possibleConstructorReturn(this, (EventLogger.__proto__ || Object.getPrototypeOf(EventLogger)).call(this, props));
-
-		_this.state = {
-			logs: []
-		};
-		return _this;
+		return _possibleConstructorReturn(this, (EventLogger.__proto__ || Object.getPrototypeOf(EventLogger)).apply(this, arguments));
 	}
 
 	_createClass(EventLogger, [{
@@ -1969,7 +1964,7 @@ var EventLogger = function (_React$Component) {
 		value: function render() {
 			var _this2 = this;
 
-			var logs = this.state.logs;
+			var logs = this.props.logs;
 
 			return _react2.default.createElement(
 				'table',
@@ -2222,58 +2217,43 @@ var EventLogger = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = EventLogger;
-},{"react":22}],13:[function(require,module,exports) {
+},{"react":15}],11:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var EventListenerRaw = function () {
-	function EventListenerRaw(container, onevent) {
-		_classCallCheck(this, EventListenerRaw);
+var supported_events = [
+// KeyboardEvent
+'keydown', 'keypress', 'keyup',
 
-		this.container = container;
-		this.onevent = onevent || function () {};
-	}
+// CompositionEvent
+'compositionstart', 'compositionupdate', 'compositionend',
 
-	_createClass(EventListenerRaw, [{
-		key: 'componentDidMount',
-		value: function componentDidMount() {
-			this.attachDOMListeners();
-		}
-	}, {
-		key: 'attachDOMListeners',
-		value: function attachDOMListeners() {
-			var _this = this;
+// InputEvent
+'beforeinput', 'input',
 
-			[
-			// KeyboardEvent
-			'keydown', 'keypress', 'keyup',
+// Selection Event
+'selectionchange'];
 
-			// CompositionEvent
-			'compositionstart', 'compositionupdate', 'compositionend',
+var EventListenerRaw = function EventListenerRaw(container, onevent) {
+	var _this = this;
 
-			// InputEvent
-			'beforeinput', 'input',
+	_classCallCheck(this, EventListenerRaw);
 
-			// Selection Event
-			'selectionchange'].forEach(function (eventStr) {
-				_this.container.addEventListener(eventStr, _this.onevent);
-			});
-		}
-	}]);
-
-	return EventListenerRaw;
-}();
+	this.container = container;
+	this.onevent = onevent || function () {};
+	supported_events.forEach(function (eventStr) {
+		return _this.container.addEventListener(eventStr, _this.onevent);
+	});
+};
 
 exports.default = EventListenerRaw;
-},{}],14:[function(require,module,exports) {
-'use strict';
+},{}],12:[function(require,module,exports) {
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -2281,7 +2261,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -2303,7 +2283,7 @@ var EventListenerReact = function (_React$Component) {
 	}
 
 	_createClass(EventListenerReact, [{
-		key: 'render',
+		key: "render",
 		value: function render() {
 			var onevent = this.props.onevent;
 
@@ -2315,28 +2295,22 @@ var EventListenerReact = function (_React$Component) {
 			};
 
 			return _react2.default.createElement(
-				'div',
+				"div",
 				{
-
-					className: 'rte',
+					className: "rte",
 					contentEditable: true,
-					role: 'textbox',
-
+					role: "textbox",
 					onKeyDown: handle_event('onKeyDown'),
 					onKeyPress: handle_event('onKeyPress'),
 					onKeyUp: handle_event('onKeyUp'),
-
 					onCompositionStart: handle_event('onCompositionStart'),
 					onCompositionUpdate: handle_event('onCompositionUpdate'),
 					onCompositionEnd: handle_event('onCompositionEnd'),
-
 					onBeforeInput: handle_event('onBeforeInput'),
 					onInput: handle_event('onInput'),
-
 					onSelect: handle_event('onSelect')
-
 				},
-				'Hello World'
+				"Hello World"
 			);
 		}
 	}]);
@@ -2345,7 +2319,7 @@ var EventListenerReact = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = EventListenerReact;
-},{"react":22}],16:[function(require,module,exports) {
+},{"react":15}],14:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2362,7 +2336,7 @@ var getNextKey = exports.getNextKey = function getNextKey() {
 var resetKey = exports.resetKey = function resetKey() {
   return key = 1;
 };
-},{}],15:[function(require,module,exports) {
+},{}],13:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2403,7 +2377,7 @@ exports.default = function (e, callbackName, isNativeCounterpart) {
 
 	return ret;
 };
-},{"./generate-key":16}],38:[function(require,module,exports) {
+},{"./generate-key":14}],40:[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -2437,7 +2411,7 @@ var ExecutionEnvironment = {
 };
 
 module.exports = ExecutionEnvironment;
-},{}],39:[function(require,module,exports) {
+},{}],41:[function(require,module,exports) {
 'use strict';
 
 /**
@@ -2474,7 +2448,7 @@ function getActiveElement(doc) /*?DOMElement*/{
 }
 
 module.exports = getActiveElement;
-},{}],40:[function(require,module,exports) {
+},{}],42:[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -2540,7 +2514,7 @@ function shallowEqual(objA, objB) {
 }
 
 module.exports = shallowEqual;
-},{}],48:[function(require,module,exports) {
+},{}],50:[function(require,module,exports) {
 'use strict';
 
 /**
@@ -2563,7 +2537,7 @@ function isNode(object) {
 }
 
 module.exports = isNode;
-},{}],45:[function(require,module,exports) {
+},{}],49:[function(require,module,exports) {
 'use strict';
 
 /**
@@ -2586,7 +2560,7 @@ function isTextNode(object) {
 }
 
 module.exports = isTextNode;
-},{"./isNode":48}],41:[function(require,module,exports) {
+},{"./isNode":50}],43:[function(require,module,exports) {
 'use strict';
 
 /**
@@ -2624,7 +2598,7 @@ function containsNode(outerNode, innerNode) {
 }
 
 module.exports = containsNode;
-},{"./isTextNode":45}],46:[function(require,module,exports) {
+},{"./isTextNode":49}],46:[function(require,module,exports) {
 'use strict';
 
 /**
@@ -2655,7 +2629,7 @@ function hyphenate(string) {
 }
 
 module.exports = hyphenate;
-},{}],42:[function(require,module,exports) {
+},{}],44:[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -2692,7 +2666,7 @@ function hyphenateStyleName(string) {
 }
 
 module.exports = hyphenateStyleName;
-},{"./hyphenate":46}],47:[function(require,module,exports) {
+},{"./hyphenate":46}],48:[function(require,module,exports) {
 "use strict";
 
 /**
@@ -2722,7 +2696,7 @@ function camelize(string) {
 }
 
 module.exports = camelize;
-},{}],43:[function(require,module,exports) {
+},{}],45:[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -2760,7 +2734,7 @@ function camelizeStyleName(string) {
 }
 
 module.exports = camelizeStyleName;
-},{"./camelize":47}],28:[function(require,module,exports) {
+},{"./camelize":48}],23:[function(require,module,exports) {
 /** @license React v16.4.1
  * react-dom.development.js
  *
@@ -20166,7 +20140,7 @@ if ('development' !== "production") {
     module.exports = reactDom;
   })();
 }
-},{"fbjs/lib/invariant":33,"react":22,"fbjs/lib/warning":35,"fbjs/lib/ExecutionEnvironment":38,"object-assign":32,"fbjs/lib/emptyFunction":36,"prop-types/checkPropTypes":37,"fbjs/lib/getActiveElement":39,"fbjs/lib/shallowEqual":40,"fbjs/lib/containsNode":41,"fbjs/lib/emptyObject":34,"fbjs/lib/hyphenateStyleName":42,"fbjs/lib/camelizeStyleName":43}],23:[function(require,module,exports) {
+},{"fbjs/lib/invariant":30,"react":15,"fbjs/lib/warning":32,"fbjs/lib/ExecutionEnvironment":40,"object-assign":28,"fbjs/lib/emptyFunction":31,"prop-types/checkPropTypes":33,"fbjs/lib/getActiveElement":41,"fbjs/lib/shallowEqual":42,"fbjs/lib/containsNode":43,"fbjs/lib/emptyObject":29,"fbjs/lib/hyphenateStyleName":44,"fbjs/lib/camelizeStyleName":45}],16:[function(require,module,exports) {
 'use strict';
 
 function checkDCE() {
@@ -20202,7 +20176,7 @@ if ('development' === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":28}],24:[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":23}],21:[function(require,module,exports) {
 var define;
 var global = arguments[3];
 /**
@@ -25009,7 +24983,7 @@ var global = arguments[3];
 
   return Immutable;
 });
-},{}],10:[function(require,module,exports) {
+},{}],6:[function(require,module,exports) {
 'use strict';
 
 var _EventLogger = require('./components/EventLogger');
@@ -25042,9 +25016,8 @@ var _immutable = require('immutable');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var logs = new _immutable.Stack(),
-    logger_el = void 0,
-    STACK_LIMIT = 100;
+var logs = new _immutable.Stack();
+var STACK_LIMIT = 100;
 
 var add_log = function add_log(item) {
 	logs = logs.push(item).slice(0, STACK_LIMIT);
@@ -25070,20 +25043,16 @@ var insert_separator = function insert_separator() {
 	render_logs();
 };
 
-var render_logs = function render_logs() {
-	if (logger_el) {
-		logger_el.setState({ logs: logs });
-	}
-};
+var logger_el = document.querySelector('.logger');
 
-_reactDom2.default.render(_react2.default.createElement(_EventLogger2.default, { logs: logs, ref: function ref(el) {
-		return logger_el = el;
-	}, clearLog: clear_log, insertSeparator: insert_separator }), document.querySelector('.logger'));
+var render_logs = function render_logs() {
+	_reactDom2.default.render(_react2.default.createElement(_EventLogger2.default, { logs: logs, clearLog: clear_log, insertSeparator: insert_separator }), logger_el);
+};
 
 _reactDom2.default.render(_react2.default.createElement(_EventListenerReact2.default, { onevent: log_event }), document.querySelector('#rte__wrapper--react'));
 
 new _EventListenerRaw2.default(document.querySelector('#rte--raw'), log_event);
-},{"./components/EventLogger":12,"./components/EventListenerRaw":13,"./components/EventListenerReact":14,"./utils/serialize-event":15,"./utils/generate-key":16,"react":22,"react-dom":23,"immutable":24}],5:[function(require,module,exports) {
+},{"./components/EventLogger":10,"./components/EventListenerRaw":11,"./components/EventListenerReact":12,"./utils/serialize-event":13,"./utils/generate-key":14,"react":15,"react-dom":16,"immutable":21}],51:[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -25112,7 +25081,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '61396' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '61956' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -25253,5 +25222,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[5,10], null)
-//# sourceMappingURL=/src.9bee9cec.map
+},{}]},{},[51,6], null)
+//# sourceMappingURL=/input-methods/src.9bee9cec.map
