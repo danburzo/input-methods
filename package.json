@@ -1,23 +1,36 @@
 {
-  "name": "input-methods",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/danburzo/input-methods.git",
-  "author": "Dan Burzo <danburzo@gmail.com>",
-  "license": "MIT",
-  "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "immutable": "^3.8.1",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "webpack": "^3.5.5",
-    "webpack-dev-server": "^2.7.1"
-  },
-  "scripts": {
-    "start": "webpack-dev-server --config webpack.config.js",
-    "build": "webpack --config webpack.config.js"
-  }
+	"name": "input-methods",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "https://github.com/danburzo/input-methods.git",
+	"author": "Dan Burzo <danburzo@gmail.com>",
+	"license": "MIT",
+	"devDependencies": {
+		"gh-pages": "^1.2.0",
+		"husky": "^0.14.3",
+		"immutable": "^3.8.1",
+		"parcel-bundler": "^1.9.1",
+		"parcel-plugin-clean-dist": "^0.0.6",
+		"prettier": "^1.13.5",
+		"pretty-quick": "^1.6.0",
+		"react": "latest",
+		"react-dom": "latest"
+	},
+	"scripts": {
+		"start": "parcel ui-event-viewer/src/index.html --out-dir ui-event-viewer/dist --public-url /input-methods",
+		"build": "parcel build --no-minify --out-dir ui-event-viewer/dist ui-event-viewer/src/index.html --public-url /input-methods",
+		"deploy": "yarn build && gh-pages -d ui-event-viewer/dist",
+		"precommit": "pretty-quick --staged"
+	},
+	"prettier": {
+		"bracketSpacing": true,
+		"semi": true,
+		"singleQuote": true,
+		"trailingComma": "none",
+		"useTabs": true,
+		"tabWidth": 4,
+		"jsxBracketSameLine": false,
+		"arrowParens": "avoid",
+		"printWidth": 100
+	}
 }
