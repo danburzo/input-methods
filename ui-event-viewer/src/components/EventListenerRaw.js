@@ -1,8 +1,10 @@
 export default class EventListenerRaw {
-	
 	constructor(container, onevent) {
 		this.container = container;
 		this.onevent = onevent || (() => {});
+	}
+
+	componentDidMount() {
 		this.attachDOMListeners();
 	}
 
@@ -25,7 +27,7 @@ export default class EventListenerRaw {
 			// Selection Event
 			'selectionchange'
 		].forEach(eventStr => {
-			this.container.addEventListener(eventStr, this.onevent)
-		})
+			this.container.addEventListener(eventStr, this.onevent);
+		});
 	}
 }
