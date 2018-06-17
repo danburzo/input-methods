@@ -103,7 +103,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({28:[function(require,module,exports) {
+})({27:[function(require,module,exports) {
 /*
 object-assign
 (c) Sindre Sorhus
@@ -194,7 +194,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 	return to;
 };
-},{}],30:[function(require,module,exports) {
+},{}],28:[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -303,7 +303,7 @@ emptyFunction.thatReturnsArgument = function (arg) {
 };
 
 module.exports = emptyFunction;
-},{}],32:[function(require,module,exports) {
+},{}],30:[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -366,7 +366,7 @@ if ('development' !== 'production') {
 }
 
 module.exports = warning;
-},{"./emptyFunction":31}],47:[function(require,module,exports) {
+},{"./emptyFunction":31}],45:[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -380,7 +380,7 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
 module.exports = ReactPropTypesSecret;
 
-},{}],33:[function(require,module,exports) {
+},{}],32:[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -440,7 +440,7 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
 }
 
 module.exports = checkPropTypes;
-},{"fbjs/lib/invariant":30,"fbjs/lib/warning":32,"./lib/ReactPropTypesSecret":47}],22:[function(require,module,exports) {
+},{"fbjs/lib/invariant":28,"fbjs/lib/warning":30,"./lib/ReactPropTypesSecret":45}],22:[function(require,module,exports) {
 /** @license React v16.4.1
  * react.development.js
  *
@@ -1921,7 +1921,7 @@ if ('development' !== "production") {
     module.exports = react;
   })();
 }
-},{"object-assign":28,"fbjs/lib/invariant":30,"fbjs/lib/emptyObject":29,"fbjs/lib/warning":32,"fbjs/lib/emptyFunction":31,"prop-types/checkPropTypes":33}],15:[function(require,module,exports) {
+},{"object-assign":27,"fbjs/lib/invariant":28,"fbjs/lib/emptyObject":29,"fbjs/lib/warning":30,"fbjs/lib/emptyFunction":31,"prop-types/checkPropTypes":32}],18:[function(require,module,exports) {
 'use strict';
 
 if ('development' === 'production') {
@@ -1929,8 +1929,8 @@ if ('development' === 'production') {
 } else {
   module.exports = require('./cjs/react.development.js');
 }
-},{"./cjs/react.development.js":22}],10:[function(require,module,exports) {
-'use strict';
+},{"./cjs/react.development.js":22}],11:[function(require,module,exports) {
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -1938,7 +1938,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -1960,200 +1960,203 @@ var EventLogger = function (_React$Component) {
 	}
 
 	_createClass(EventLogger, [{
-		key: 'render',
+		key: "render",
 		value: function render() {
 			var _this2 = this;
 
 			var logs = this.props.logs;
 
 			return _react2.default.createElement(
-				'table',
-				{ className: 'logger__table' },
+				"table",
+				{ className: "logger__table" },
 				_react2.default.createElement(
-					'caption',
+					"caption",
 					null,
 					_react2.default.createElement(
-						'ul',
+						"ul",
 						null,
 						_react2.default.createElement(
-							'li',
+							"li",
 							null,
 							this.renderBoolean(true),
-							' = true'
+							" = true"
 						),
 						_react2.default.createElement(
-							'li',
+							"li",
 							null,
 							this.renderBoolean(false),
-							' = false'
+							" = false"
 						),
 						_react2.default.createElement(
-							'li',
+							"li",
 							null,
 							this.renderBoolean(undefined),
-							' = null or undefined'
+							" = null or undefined"
 						),
 						_react2.default.createElement(
-							'li',
+							"li",
 							null,
 							_react2.default.createElement(
-								'sup',
+								"sup",
 								null,
-								'1'
+								"1"
 							),
-							' refers to properties present in both KeyboardEvent and InputEvent.'
+							" refers to properties present in both KeyboardEvent and InputEvent."
 						),
 						_react2.default.createElement(
-							'li',
+							"li",
 							null,
 							_react2.default.createElement(
-								'button',
+								"button",
 								{ onClick: this.props.insertSeparator },
-								'Insert separator \u2195'
+								"Insert separator \u2195"
 							)
 						),
 						_react2.default.createElement(
-							'li',
+							"li",
 							null,
 							_react2.default.createElement(
-								'button',
+								"button",
 								{ onClick: this.props.clearLog },
-								'Clear log \u267A'
+								"Clear log \u267A"
 							)
 						)
 					)
 				),
 				_react2.default.createElement(
-					'thead',
+					"thead",
 					null,
 					_react2.default.createElement(
-						'tr',
+						"tr",
 						null,
 						_react2.default.createElement(
-							'th',
-							{ colSpan: '3' },
-							'General'
+							"th",
+							{ colSpan: "3" },
+							"General"
 						),
 						_react2.default.createElement(
-							'th',
-							{ colSpan: '3' },
-							'KeyboardEvent'
+							"th",
+							{ colSpan: "3" },
+							"KeyboardEvent"
 						),
 						_react2.default.createElement(
-							'th',
+							"th",
 							null,
-							'UIEvent',
+							"UIEvent",
 							_react2.default.createElement(
-								'sup',
+								"sup",
 								null,
-								'1'
+								"1"
 							)
 						),
 						_react2.default.createElement(
-							'th',
-							{ colSpan: '2' },
-							'InputEvent'
+							"th",
+							{ colSpan: "2" },
+							"InputEvent"
 						)
 					),
 					_react2.default.createElement(
-						'tr',
+						"tr",
 						null,
 						_react2.default.createElement(
-							'th',
+							"th",
 							null,
-							'#'
+							"#"
 						),
 						_react2.default.createElement(
-							'th',
+							"th",
 							null,
-							'constructor'
+							"constructor"
 						),
 						_react2.default.createElement(
-							'th',
+							"th",
 							null,
-							'type'
+							"type"
 						),
 						_react2.default.createElement(
-							'th',
+							"th",
 							null,
-							'key'
+							"key"
 						),
 						_react2.default.createElement(
-							'th',
+							"th",
 							null,
-							'code'
+							"code"
 						),
 						_react2.default.createElement(
-							'th',
+							"th",
 							null,
-							'repeat'
+							"repeat"
 						),
 						_react2.default.createElement(
-							'th',
+							"th",
 							null,
-							'isComposing'
+							"isComposing"
 						),
 						_react2.default.createElement(
-							'th',
+							"th",
 							null,
-							'inputType'
+							"inputType"
 						),
 						_react2.default.createElement(
-							'th',
+							"th",
 							null,
-							'data'
+							"data"
 						)
 					)
 				),
 				_react2.default.createElement(
-					'tbody',
+					"tbody",
 					null,
 					logs.map(function (entry) {
 						return _react2.default.createElement(
-							'tr',
-							{ key: entry.index, className: 'logger__row logger__row--' + entry.kind + (entry.isNativeCounterpart ? ' logger__row--native-counterpart' : '') },
+							"tr",
+							{
+								key: entry.index,
+								className: 'logger__row logger__row--' + entry.kind + (entry.isNativeCounterpart ? ' logger__row--native-counterpart' : '')
+							},
 							_react2.default.createElement(
-								'td',
+								"td",
 								null,
 								entry.isNativeCounterpart ? '⮑' : entry.index
 							),
 							_react2.default.createElement(
-								'td',
+								"td",
 								null,
 								_this2.renderKind(entry.kind, entry.origin)
 							),
 							_react2.default.createElement(
-								'td',
+								"td",
 								null,
 								_this2.renderValue(entry.type)
 							),
 							_react2.default.createElement(
-								'td',
+								"td",
 								null,
 								_this2.renderValue(entry.key)
 							),
 							_react2.default.createElement(
-								'td',
+								"td",
 								null,
 								_this2.renderValue(entry.code)
 							),
 							_react2.default.createElement(
-								'td',
+								"td",
 								null,
 								_this2.renderBoolean(entry.repeat)
 							),
 							_react2.default.createElement(
-								'td',
+								"td",
 								null,
 								_this2.renderBoolean(entry.isComposing)
 							),
 							_react2.default.createElement(
-								'td',
+								"td",
 								null,
 								_this2.renderValue(entry.inputType)
 							),
 							_react2.default.createElement(
-								'td',
+								"td",
 								null,
 								_this2.renderValue(entry.data)
 							)
@@ -2163,49 +2166,49 @@ var EventLogger = function (_React$Component) {
 			);
 		}
 	}, {
-		key: 'renderValue',
+		key: "renderValue",
 		value: function renderValue(val) {
 			return val ? _react2.default.createElement(
-				'pre',
+				"pre",
 				null,
 				_react2.default.createElement(
-					'code',
+					"code",
 					null,
 					val
 				)
 			) : this.renderBoolean(undefined);
 		}
 	}, {
-		key: 'renderBoolean',
+		key: "renderBoolean",
 		value: function renderBoolean(flag) {
 			return flag === true ? _react2.default.createElement(
-				'span',
-				{ className: 'bool bool--true', title: 'true' },
-				'\u2713'
+				"span",
+				{ className: "bool bool--true", title: "true" },
+				"\u2713"
 			) : flag === false ? _react2.default.createElement(
-				'span',
-				{ className: 'bool bool--false', title: 'false' },
-				'\xD7'
+				"span",
+				{ className: "bool bool--false", title: "false" },
+				"\xD7"
 			) : _react2.default.createElement(
-				'span',
-				{ className: 'bool bool--undefined', title: 'null/undefined' },
-				'\u2205'
+				"span",
+				{ className: "bool bool--undefined", title: "null/undefined" },
+				"\u2205"
 			);
 		}
 	}, {
-		key: 'renderKind',
+		key: "renderKind",
 		value: function renderKind(kind, origin) {
 			return kind ? _react2.default.createElement(
-				'pre',
+				"pre",
 				null,
 				_react2.default.createElement(
-					'code',
+					"code",
 					null,
 					kind,
-					' ',
+					" ",
 					origin ? _react2.default.createElement(
-						'span',
-						{ className: 'origin' },
+						"span",
+						{ className: "origin" },
 						origin
 					) : null
 				)
@@ -2217,7 +2220,7 @@ var EventLogger = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = EventLogger;
-},{"react":15}],11:[function(require,module,exports) {
+},{"react":18}],12:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2226,7 +2229,7 @@ Object.defineProperty(exports, "__esModule", {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var supported_events = [
+var supported_native_events = [
 // KeyboardEvent
 'keydown', 'keypress', 'keyup',
 
@@ -2246,22 +2249,24 @@ var EventListenerRaw = function EventListenerRaw(container, onevent) {
 
 	this.container = container;
 	this.onevent = onevent || function () {};
-	supported_events.forEach(function (eventStr) {
+	supported_native_events.forEach(function (eventStr) {
 		return _this.container.addEventListener(eventStr, _this.onevent);
 	});
 };
 
 exports.default = EventListenerRaw;
-},{}],12:[function(require,module,exports) {
-"use strict";
+},{}],13:[function(require,module,exports) {
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -2273,6 +2278,19 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var supported_synthetic_events = [
+// keyboard events
+'onKeyDown', 'onKeyPress', 'onKeyUp',
+
+// composition events
+'onCompositionStart', 'onCompositionUpdate', 'onCompositionEnd',
+
+// input events
+'onInput', 'onBeforeInput',
+
+// selection events
+'onSelect'];
+
 var EventListenerReact = function (_React$Component) {
 	_inherits(EventListenerReact, _React$Component);
 
@@ -2283,34 +2301,22 @@ var EventListenerReact = function (_React$Component) {
 	}
 
 	_createClass(EventListenerReact, [{
-		key: "render",
+		key: 'render',
 		value: function render() {
-			var onevent = this.props.onevent;
+			var _this2 = this;
 
-			var handle_event = function handle_event(callbackName) {
-				return function (syntheticEvent) {
-					syntheticEvent.persist();
-					onevent(syntheticEvent, callbackName);
+			var event_handlers = {};
+			supported_synthetic_events.forEach(function (eventStr) {
+				event_handlers[eventStr] = function (e) {
+					e.persist();
+					_this2.props.onevent(e, eventStr);
 				};
-			};
+			});
 
 			return _react2.default.createElement(
-				"div",
-				{
-					className: "rte",
-					contentEditable: true,
-					role: "textbox",
-					onKeyDown: handle_event('onKeyDown'),
-					onKeyPress: handle_event('onKeyPress'),
-					onKeyUp: handle_event('onKeyUp'),
-					onCompositionStart: handle_event('onCompositionStart'),
-					onCompositionUpdate: handle_event('onCompositionUpdate'),
-					onCompositionEnd: handle_event('onCompositionEnd'),
-					onBeforeInput: handle_event('onBeforeInput'),
-					onInput: handle_event('onInput'),
-					onSelect: handle_event('onSelect')
-				},
-				"Hello World"
+				'div',
+				_extends({ className: 'rte', contentEditable: true, role: 'textbox' }, event_handlers),
+				'Hello World'
 			);
 		}
 	}]);
@@ -2319,65 +2325,7 @@ var EventListenerReact = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = EventListenerReact;
-},{"react":15}],14:[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var key = 1;
-
-var getKey = exports.getKey = function getKey() {
-  return key;
-};
-var getNextKey = exports.getNextKey = function getNextKey() {
-  return key++;
-};
-var resetKey = exports.resetKey = function resetKey() {
-  return key = 1;
-};
-},{}],13:[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _generateKey = require('./generate-key');
-
-exports.default = function (e, callbackName, isNativeCounterpart) {
-
-	var index = isNativeCounterpart ? '\u2B91 ' + (0, _generateKey.getKey)() : (0, _generateKey.getNextKey)();
-
-	var ret = {
-		kind: e.constructor.name,
-		index: index,
-		isNativeCounterpart: isNativeCounterpart
-	};
-
-	if (callbackName) {
-		ret.origin = callbackName;
-	}
-
-	[
-	// Event interface
-	'type',
-
-	// KeyboardEvent interface
-	'key', 'code', 'repeat',
-
-	// Common to KeyboardEvent and InputEvent
-	'isComposing',
-
-	// InputEvent
-
-	'inputType', 'data'].forEach(function (prop) {
-		return ret[prop] = e[prop];
-	});
-
-	return ret;
-};
-},{"./generate-key":14}],40:[function(require,module,exports) {
+},{"react":18}],39:[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -2411,7 +2359,7 @@ var ExecutionEnvironment = {
 };
 
 module.exports = ExecutionEnvironment;
-},{}],41:[function(require,module,exports) {
+},{}],40:[function(require,module,exports) {
 'use strict';
 
 /**
@@ -2448,7 +2396,7 @@ function getActiveElement(doc) /*?DOMElement*/{
 }
 
 module.exports = getActiveElement;
-},{}],42:[function(require,module,exports) {
+},{}],41:[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -2514,7 +2462,7 @@ function shallowEqual(objA, objB) {
 }
 
 module.exports = shallowEqual;
-},{}],50:[function(require,module,exports) {
+},{}],49:[function(require,module,exports) {
 'use strict';
 
 /**
@@ -2537,7 +2485,7 @@ function isNode(object) {
 }
 
 module.exports = isNode;
-},{}],49:[function(require,module,exports) {
+},{}],48:[function(require,module,exports) {
 'use strict';
 
 /**
@@ -2560,7 +2508,7 @@ function isTextNode(object) {
 }
 
 module.exports = isTextNode;
-},{"./isNode":50}],43:[function(require,module,exports) {
+},{"./isNode":49}],42:[function(require,module,exports) {
 'use strict';
 
 /**
@@ -2598,7 +2546,7 @@ function containsNode(outerNode, innerNode) {
 }
 
 module.exports = containsNode;
-},{"./isTextNode":49}],46:[function(require,module,exports) {
+},{"./isTextNode":48}],46:[function(require,module,exports) {
 'use strict';
 
 /**
@@ -2629,7 +2577,7 @@ function hyphenate(string) {
 }
 
 module.exports = hyphenate;
-},{}],44:[function(require,module,exports) {
+},{}],43:[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -2666,7 +2614,7 @@ function hyphenateStyleName(string) {
 }
 
 module.exports = hyphenateStyleName;
-},{"./hyphenate":46}],48:[function(require,module,exports) {
+},{"./hyphenate":46}],47:[function(require,module,exports) {
 "use strict";
 
 /**
@@ -2696,7 +2644,7 @@ function camelize(string) {
 }
 
 module.exports = camelize;
-},{}],45:[function(require,module,exports) {
+},{}],44:[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -2734,7 +2682,7 @@ function camelizeStyleName(string) {
 }
 
 module.exports = camelizeStyleName;
-},{"./camelize":48}],23:[function(require,module,exports) {
+},{"./camelize":47}],24:[function(require,module,exports) {
 /** @license React v16.4.1
  * react-dom.development.js
  *
@@ -20140,7 +20088,7 @@ if ('development' !== "production") {
     module.exports = reactDom;
   })();
 }
-},{"fbjs/lib/invariant":30,"react":15,"fbjs/lib/warning":32,"fbjs/lib/ExecutionEnvironment":40,"object-assign":28,"fbjs/lib/emptyFunction":31,"prop-types/checkPropTypes":33,"fbjs/lib/getActiveElement":41,"fbjs/lib/shallowEqual":42,"fbjs/lib/containsNode":43,"fbjs/lib/emptyObject":29,"fbjs/lib/hyphenateStyleName":44,"fbjs/lib/camelizeStyleName":45}],16:[function(require,module,exports) {
+},{"fbjs/lib/invariant":28,"react":18,"fbjs/lib/warning":30,"fbjs/lib/ExecutionEnvironment":39,"object-assign":27,"fbjs/lib/emptyFunction":31,"prop-types/checkPropTypes":32,"fbjs/lib/getActiveElement":40,"fbjs/lib/shallowEqual":41,"fbjs/lib/containsNode":42,"fbjs/lib/emptyObject":29,"fbjs/lib/hyphenateStyleName":43,"fbjs/lib/camelizeStyleName":44}],19:[function(require,module,exports) {
 'use strict';
 
 function checkDCE() {
@@ -20176,7 +20124,7 @@ if ('development' === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":23}],21:[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":24}],26:[function(require,module,exports) {
 var define;
 var global = arguments[3];
 /**
@@ -24983,7 +24931,114 @@ var global = arguments[3];
 
   return Immutable;
 });
-},{}],6:[function(require,module,exports) {
+},{}],10:[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _immutable = require('immutable');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } // Libs
+
+
+var STACK_LIMIT = 100;
+
+var Log = function () {
+	function Log() {
+		_classCallCheck(this, Log);
+
+		this.key = 1;
+		this.logs = new _immutable.Stack();
+	}
+
+	_createClass(Log, [{
+		key: 'getKey',
+		value: function getKey() {
+			return this.key;
+		}
+	}, {
+		key: 'getNextKey',
+		value: function getNextKey() {
+			return this.key++;
+		}
+	}, {
+		key: 'resetKey',
+		value: function resetKey() {
+			this.key = 1;
+		}
+	}, {
+		key: 'serializeEvent',
+		value: function serializeEvent(e, callbackName, isNativeCounterpart) {
+			var index = isNativeCounterpart ? '\u2B91 ' + this.getKey() : this.getNextKey();
+
+			console.log(e.constructor);
+
+			var ret = {
+				kind: e.constructor.name,
+				index: index,
+				isNativeCounterpart: isNativeCounterpart
+			};
+
+			if (callbackName) {
+				ret.origin = callbackName;
+			}
+
+			[
+			// Event interface
+			'type',
+
+			// KeyboardEvent interface
+			'key', 'code', 'repeat',
+
+			// Common to KeyboardEvent and InputEvent
+			'isComposing',
+
+			// InputEvent
+
+			'inputType', 'data'].forEach(function (prop) {
+				return ret[prop] = e[prop];
+			});
+
+			return ret;
+		}
+	}, {
+		key: 'add_log',
+		value: function add_log(item) {
+			this.logs = this.logs.push(item).slice(0, STACK_LIMIT);
+		}
+	}, {
+		key: 'clear_log',
+		value: function clear_log() {
+			this.logs = new _immutable.Stack();
+			this.resetKey();
+		}
+	}, {
+		key: 'log_event',
+		value: function log_event(e, callbackName) {
+			if (e.nativeEvent) {
+				this.add_log(this.serializeEvent(e.nativeEvent, null, true));
+			}
+			this.add_log(this.serializeEvent(e, callbackName));
+		}
+	}, {
+		key: 'insert_separator',
+		value: function insert_separator() {
+			this.add_log({
+				index: this.getNextKey(),
+				kind: 'separator'
+			});
+		}
+	}]);
+
+	return Log;
+}();
+
+exports.default = Log;
+},{"immutable":26}],6:[function(require,module,exports) {
 'use strict';
 
 var _EventLogger = require('./components/EventLogger');
@@ -24998,12 +25053,6 @@ var _EventListenerReact = require('./components/EventListenerReact');
 
 var _EventListenerReact2 = _interopRequireDefault(_EventListenerReact);
 
-var _serializeEvent = require('./utils/serialize-event');
-
-var _serializeEvent2 = _interopRequireDefault(_serializeEvent);
-
-var _generateKey = require('./utils/generate-key');
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -25012,215 +25061,40 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _immutable = require('immutable');
+var _log = require('./log');
+
+var _log2 = _interopRequireDefault(_log);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var logs = new _immutable.Stack();
-var STACK_LIMIT = 100;
-
-var add_log = function add_log(item) {
-	logs = logs.push(item).slice(0, STACK_LIMIT);
-};
-
-var log_event = function log_event(e, callbackName) {
-
-	if (e.nativeEvent) {
-		add_log((0, _serializeEvent2.default)(e.nativeEvent, null, true));
-	}
-	add_log((0, _serializeEvent2.default)(e, callbackName));
-	render_logs();
-};
-
-var clear_log = function clear_log() {
-	logs = new _immutable.Stack();
-	(0, _generateKey.resetKey)();
-	render_logs();
-};
-
-var insert_separator = function insert_separator() {
-	add_log({ index: (0, _generateKey.getNextKey)(), kind: 'separator' });
-	render_logs();
-};
+var log = new _log2.default();
 
 var logger_el = document.querySelector('.logger');
 
 var render_logs = function render_logs() {
-	_reactDom2.default.render(_react2.default.createElement(_EventLogger2.default, { logs: logs, clearLog: clear_log, insertSeparator: insert_separator }), logger_el);
+	_reactDom2.default.render(_react2.default.createElement(_EventLogger2.default, {
+		logs: log.logs,
+		clearLog: function clearLog() {
+			log.clear_log();
+			render_logs();
+		},
+		insertSeparator: function insertSeparator() {
+			log.insert_separator();
+			render_logs();
+		}
+	}), logger_el);
 };
 
-_reactDom2.default.render(_react2.default.createElement(_EventListenerReact2.default, { onevent: log_event }), document.querySelector('#rte__wrapper--react'));
+_reactDom2.default.render(_react2.default.createElement(_EventListenerReact2.default, {
+	onevent: function onevent(e, callbackName) {
+		log.log_event(e, callbackName);
+		render_logs();
+	}
+}), document.querySelector('#rte__wrapper--react'));
 
-new _EventListenerRaw2.default(document.querySelector('#rte--raw'), log_event);
-},{"./components/EventLogger":10,"./components/EventListenerRaw":11,"./components/EventListenerReact":12,"./utils/serialize-event":13,"./utils/generate-key":14,"react":15,"react-dom":16,"immutable":21}],51:[function(require,module,exports) {
-var global = arguments[3];
-var OVERLAY_ID = '__parcel__error__overlay__';
-
-var OldModule = module.bundle.Module;
-
-function Module(moduleName) {
-  OldModule.call(this, moduleName);
-  this.hot = {
-    data: module.bundle.hotData,
-    _acceptCallbacks: [],
-    _disposeCallbacks: [],
-    accept: function (fn) {
-      this._acceptCallbacks.push(fn || function () {});
-    },
-    dispose: function (fn) {
-      this._disposeCallbacks.push(fn);
-    }
-  };
-
-  module.bundle.hotData = null;
-}
-
-module.bundle.Module = Module;
-
-var parent = module.bundle.parent;
-if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
-  var hostname = '' || location.hostname;
-  var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '61956' + '/');
-  ws.onmessage = function (event) {
-    var data = JSON.parse(event.data);
-
-    if (data.type === 'update') {
-      console.clear();
-
-      data.assets.forEach(function (asset) {
-        hmrApply(global.parcelRequire, asset);
-      });
-
-      data.assets.forEach(function (asset) {
-        if (!asset.isNew) {
-          hmrAccept(global.parcelRequire, asset.id);
-        }
-      });
-    }
-
-    if (data.type === 'reload') {
-      ws.close();
-      ws.onclose = function () {
-        location.reload();
-      };
-    }
-
-    if (data.type === 'error-resolved') {
-      console.log('[parcel] ✨ Error resolved');
-
-      removeErrorOverlay();
-    }
-
-    if (data.type === 'error') {
-      console.error('[parcel] 🚨  ' + data.error.message + '\n' + data.error.stack);
-
-      removeErrorOverlay();
-
-      var overlay = createErrorOverlay(data);
-      document.body.appendChild(overlay);
-    }
-  };
-}
-
-function removeErrorOverlay() {
-  var overlay = document.getElementById(OVERLAY_ID);
-  if (overlay) {
-    overlay.remove();
-  }
-}
-
-function createErrorOverlay(data) {
-  var overlay = document.createElement('div');
-  overlay.id = OVERLAY_ID;
-
-  // html encode message and stack trace
-  var message = document.createElement('div');
-  var stackTrace = document.createElement('pre');
-  message.innerText = data.error.message;
-  stackTrace.innerText = data.error.stack;
-
-  overlay.innerHTML = '<div style="background: black; font-size: 16px; color: white; position: fixed; height: 100%; width: 100%; top: 0px; left: 0px; padding: 30px; opacity: 0.85; font-family: Menlo, Consolas, monospace; z-index: 9999;">' + '<span style="background: red; padding: 2px 4px; border-radius: 2px;">ERROR</span>' + '<span style="top: 2px; margin-left: 5px; position: relative;">🚨</span>' + '<div style="font-size: 18px; font-weight: bold; margin-top: 20px;">' + message.innerHTML + '</div>' + '<pre>' + stackTrace.innerHTML + '</pre>' + '</div>';
-
-  return overlay;
-}
-
-function getParents(bundle, id) {
-  var modules = bundle.modules;
-  if (!modules) {
-    return [];
-  }
-
-  var parents = [];
-  var k, d, dep;
-
-  for (k in modules) {
-    for (d in modules[k][1]) {
-      dep = modules[k][1][d];
-      if (dep === id || Array.isArray(dep) && dep[dep.length - 1] === id) {
-        parents.push(+k);
-      }
-    }
-  }
-
-  if (bundle.parent) {
-    parents = parents.concat(getParents(bundle.parent, id));
-  }
-
-  return parents;
-}
-
-function hmrApply(bundle, asset) {
-  var modules = bundle.modules;
-  if (!modules) {
-    return;
-  }
-
-  if (modules[asset.id] || !bundle.parent) {
-    var fn = new Function('require', 'module', 'exports', asset.generated.js);
-    asset.isNew = !modules[asset.id];
-    modules[asset.id] = [fn, asset.deps];
-  } else if (bundle.parent) {
-    hmrApply(bundle.parent, asset);
-  }
-}
-
-function hmrAccept(bundle, id) {
-  var modules = bundle.modules;
-  if (!modules) {
-    return;
-  }
-
-  if (!modules[id] && bundle.parent) {
-    return hmrAccept(bundle.parent, id);
-  }
-
-  var cached = bundle.cache[id];
-  bundle.hotData = {};
-  if (cached) {
-    cached.hot.data = bundle.hotData;
-  }
-
-  if (cached && cached.hot && cached.hot._disposeCallbacks.length) {
-    cached.hot._disposeCallbacks.forEach(function (cb) {
-      cb(bundle.hotData);
-    });
-  }
-
-  delete bundle.cache[id];
-  bundle(id);
-
-  cached = bundle.cache[id];
-  if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
-    cached.hot._acceptCallbacks.forEach(function (cb) {
-      cb();
-    });
-    return true;
-  }
-
-  return getParents(global.parcelRequire, id).some(function (id) {
-    return hmrAccept(global.parcelRequire, id);
-  });
-}
-},{}]},{},[51,6], null)
+new _EventListenerRaw2.default(document.querySelector('#rte--raw'), function (e) {
+	log.log_event(e);
+	render_logs();
+});
+},{"./components/EventLogger":11,"./components/EventListenerRaw":12,"./components/EventListenerReact":13,"react":18,"react-dom":19,"./log":10}]},{},[6], null)
 //# sourceMappingURL=/input-methods/src.9bee9cec.map
