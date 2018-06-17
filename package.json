@@ -10,6 +10,7 @@
 		"husky": "^0.14.3",
 		"immutable": "^3.8.1",
 		"parcel-bundler": "^1.9.1",
+		"parcel-plugin-clean-dist": "^0.0.6",
 		"prettier": "^1.13.5",
 		"pretty-quick": "^1.6.0",
 		"react": "latest",
@@ -17,7 +18,7 @@
 	},
 	"scripts": {
 		"start": "parcel ui-event-viewer/src/index.html --out-dir ui-event-viewer/dist --public-url /input-methods",
-		"build": "export NODE_ENV=development && parcel build --out-dir ui-event-viewer/dist ui-event-viewer/src/index.html --public-url /input-methods",
+		"build": "parcel build --no-minify --out-dir ui-event-viewer/dist ui-event-viewer/src/index.html --public-url /input-methods",
 		"deploy": "yarn build && gh-pages -d ui-event-viewer/dist",
 		"precommit": "pretty-quick --staged"
 	},
