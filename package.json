@@ -17,9 +17,9 @@
 		"react-dom": "latest"
 	},
 	"scripts": {
-		"start": "parcel ui-event-viewer/src/index.html --out-dir ui-event-viewer/dist --public-url /input-methods",
-		"build": "parcel build --no-minify --out-dir ui-event-viewer/dist ui-event-viewer/src/index.html --public-url /input-methods",
-		"deploy": "yarn build && gh-pages -d ui-event-viewer/dist",
+		"start": "parcel src/index.html --out-dir dist --public-url /input-methods",
+		"build": "parcel build src/index.html --public-url /input-methods --no-minify --out-dir dist",
+		"deploy": "yarn build && gh-pages -d dist",
 		"precommit": "pretty-quick --staged"
 	},
 	"prettier": {

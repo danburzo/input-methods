@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react/cjs/react.development.js';
 
 export default class EventLogger extends React.Component {
 	render() {
@@ -20,6 +20,7 @@ export default class EventLogger extends React.Component {
 						<li>
 							<button onClick={this.props.clearLog}>Clear log ♺</button>
 						</li>
+						<li className="react-ver">React {React.version}</li>
 					</ul>
 				</caption>
 				<thead>

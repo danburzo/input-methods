@@ -60,6 +60,6 @@ typings/
 # Mac stuff
 .DS_Store
 
-ui-event-viewer/dist/
+dist/
 
 .cache/

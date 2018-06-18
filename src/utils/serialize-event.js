@@ -1,7 +1,6 @@
 import { getKey, getNextKey } from './generate-key';
 
 export default (e, callbackName, isNativeCounterpart) => {
-
 	const index = isNativeCounterpart ? `⮑ ${getKey()}` : getNextKey();
 
 	const ret = {
@@ -11,7 +10,7 @@ export default (e, callbackName, isNativeCounterpart) => {
 	};
 
 	if (callbackName) {
-		ret.origin = callbackName;
+		ret.origin = `${callbackName}()`;
 	}
 
 	[
@@ -30,7 +29,7 @@ export default (e, callbackName, isNativeCounterpart) => {
 
 		'inputType',
 		'data'
-	].forEach(prop => ret[prop] = e[prop]);
+	].forEach(prop => (ret[prop] = e[prop]));
 
 	return ret;
 };
