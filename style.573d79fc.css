@@ -1,12 +1,14 @@
 body {
 	line-height: 1.5;
-	font-family: Roboto, sans-serif;
+	font-family: 'IBM Plex Sans', sans-serif;
 	margin: 0;
 	padding: 2em;
 }
 
-pre, code, kbd {
-	font-family: 'Roboto Mono', monospace;
+pre,
+code,
+kbd {
+	font-family: 'IBM Plex Mono', monospace;
 }
 
 header {
@@ -55,7 +57,8 @@ table caption {
 	border-color: blue;
 }
 
-.logger {}
+.logger {
+}
 
 .logger__table {
 	width: 100%;
@@ -111,7 +114,7 @@ table caption {
 	color: #999 !important;
 }
 
-.logger__table pre, 
+.logger__table pre,
 .logger__table code,
 .logger__table kbd {
 	margin: 0;
@@ -148,4 +151,9 @@ table caption {
 	flex-shrink: 0;
 	flex-basis: 1;
 	margin: 0 1em;
+}
+
+.react-ver {
+	color: #808080;
+	float: right;
 }

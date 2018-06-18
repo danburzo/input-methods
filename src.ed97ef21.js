@@ -103,344 +103,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({27:[function(require,module,exports) {
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
-
-'use strict';
-/* eslint-disable no-unused-vars */
-
-var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-
-function toObject(val) {
-	if (val === null || val === undefined) {
-		throw new TypeError('Object.assign cannot be called with null or undefined');
-	}
-
-	return Object(val);
-}
-
-function shouldUseNative() {
-	try {
-		if (!Object.assign) {
-			return false;
-		}
-
-		// Detect buggy property enumeration order in older V8 versions.
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-		var test1 = new String('abc'); // eslint-disable-line no-new-wrappers
-		test1[5] = 'de';
-		if (Object.getOwnPropertyNames(test1)[0] === '5') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test2 = {};
-		for (var i = 0; i < 10; i++) {
-			test2['_' + String.fromCharCode(i)] = i;
-		}
-		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
-			return test2[n];
-		});
-		if (order2.join('') !== '0123456789') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test3 = {};
-		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
-			test3[letter] = letter;
-		});
-		if (Object.keys(Object.assign({}, test3)).join('') !== 'abcdefghijklmnopqrst') {
-			return false;
-		}
-
-		return true;
-	} catch (err) {
-		// We don't expect any of the above to throw, but better to be safe.
-		return false;
-	}
-}
-
-module.exports = shouldUseNative() ? Object.assign : function (target, source) {
-	var from;
-	var to = toObject(target);
-	var symbols;
-
-	for (var s = 1; s < arguments.length; s++) {
-		from = Object(arguments[s]);
-
-		for (var key in from) {
-			if (hasOwnProperty.call(from, key)) {
-				to[key] = from[key];
-			}
-		}
-
-		if (getOwnPropertySymbols) {
-			symbols = getOwnPropertySymbols(from);
-			for (var i = 0; i < symbols.length; i++) {
-				if (propIsEnumerable.call(from, symbols[i])) {
-					to[symbols[i]] = from[symbols[i]];
-				}
-			}
-		}
-	}
-
-	return to;
-};
-},{}],28:[function(require,module,exports) {
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-'use strict';
-
-/**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
- */
-
-var validateFormat = function validateFormat(format) {};
-
-if ('development' !== 'production') {
-  validateFormat = function validateFormat(format) {
-    if (format === undefined) {
-      throw new Error('invariant requires an error message argument');
-    }
-  };
-}
-
-function invariant(condition, format, a, b, c, d, e, f) {
-  validateFormat(format);
-
-  if (!condition) {
-    var error;
-    if (format === undefined) {
-      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-    } else {
-      var args = [a, b, c, d, e, f];
-      var argIndex = 0;
-      error = new Error(format.replace(/%s/g, function () {
-        return args[argIndex++];
-      }));
-      error.name = 'Invariant Violation';
-    }
-
-    error.framesToPop = 1; // we don't care about invariant's own frame
-    throw error;
-  }
-}
-
-module.exports = invariant;
-},{}],29:[function(require,module,exports) {
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-'use strict';
-
-var emptyObject = {};
-
-if ('development' !== 'production') {
-  Object.freeze(emptyObject);
-}
-
-module.exports = emptyObject;
-},{}],31:[function(require,module,exports) {
-"use strict";
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * 
- */
-
-function makeEmptyFunction(arg) {
-  return function () {
-    return arg;
-  };
-}
-
-/**
- * This function accepts and discards inputs; it has no side effects. This is
- * primarily useful idiomatically for overridable function endpoints which
- * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
- */
-var emptyFunction = function emptyFunction() {};
-
-emptyFunction.thatReturns = makeEmptyFunction;
-emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
-emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
-emptyFunction.thatReturnsNull = makeEmptyFunction(null);
-emptyFunction.thatReturnsThis = function () {
-  return this;
-};
-emptyFunction.thatReturnsArgument = function (arg) {
-  return arg;
-};
-
-module.exports = emptyFunction;
-},{}],30:[function(require,module,exports) {
-/**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-'use strict';
-
-var emptyFunction = require('./emptyFunction');
-
-/**
- * Similar to invariant but only logs a warning if the condition is not met.
- * This can be used to log issues in development environments in critical
- * paths. Removing the logging code for production environments will keep the
- * same logic and follow the same code paths.
- */
-
-var warning = emptyFunction;
-
-if ('development' !== 'production') {
-  var printWarning = function printWarning(format) {
-    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      args[_key - 1] = arguments[_key];
-    }
-
-    var argIndex = 0;
-    var message = 'Warning: ' + format.replace(/%s/g, function () {
-      return args[argIndex++];
-    });
-    if (typeof console !== 'undefined') {
-      console.error(message);
-    }
-    try {
-      // --- Welcome to debugging React ---
-      // This error was thrown as a convenience so that you can use this stack
-      // to find the callsite that caused this warning to fire.
-      throw new Error(message);
-    } catch (x) {}
-  };
-
-  warning = function warning(condition, format) {
-    if (format === undefined) {
-      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-    }
-
-    if (format.indexOf('Failed Composite propType: ') === 0) {
-      return; // Ignore CompositeComponent proptype check.
-    }
-
-    if (!condition) {
-      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-        args[_key2 - 2] = arguments[_key2];
-      }
-
-      printWarning.apply(undefined, [format].concat(args));
-    }
-  };
-}
-
-module.exports = warning;
-},{"./emptyFunction":31}],45:[function(require,module,exports) {
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-'use strict';
-
-var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
-
-module.exports = ReactPropTypesSecret;
-
-},{}],32:[function(require,module,exports) {
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-'use strict';
-
-if ('development' !== 'production') {
-  var invariant = require('fbjs/lib/invariant');
-  var warning = require('fbjs/lib/warning');
-  var ReactPropTypesSecret = require('./lib/ReactPropTypesSecret');
-  var loggedTypeFailures = {};
-}
-
-/**
- * Assert that the values match with the type specs.
- * Error messages are memorized and will only be shown once.
- *
- * @param {object} typeSpecs Map of name to a ReactPropType
- * @param {object} values Runtime values that need to be type-checked
- * @param {string} location e.g. "prop", "context", "child context"
- * @param {string} componentName Name of the component for error messages.
- * @param {?Function} getStack Returns the component stack.
- * @private
- */
-function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
-  if ('development' !== 'production') {
-    for (var typeSpecName in typeSpecs) {
-      if (typeSpecs.hasOwnProperty(typeSpecName)) {
-        var error;
-        // Prop type validation may throw. In case they do, we don't want to
-        // fail the render phase where it didn't fail before. So we log it.
-        // After these have been cleaned up, we'll let them throw.
-        try {
-          // This is intentionally an invariant that gets caught. It's the same
-          // behavior as without this statement except with a better message.
-          invariant(typeof typeSpecs[typeSpecName] === 'function', '%s: %s type `%s` is invalid; it must be a function, usually from ' + 'the `prop-types` package, but received `%s`.', componentName || 'React class', location, typeSpecName, typeof typeSpecs[typeSpecName]);
-          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
-        } catch (ex) {
-          error = ex;
-        }
-        warning(!error || error instanceof Error, '%s: type specification of %s `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', location, typeSpecName, typeof error);
-        if (error instanceof Error && !(error.message in loggedTypeFailures)) {
-          // Only monitor this failure once because there tends to be a lot of the
-          // same error.
-          loggedTypeFailures[error.message] = true;
-
-          var stack = getStack ? getStack() : '';
-
-          warning(false, 'Failed %s type: %s%s', location, error.message, stack != null ? stack : '');
-        }
-      }
-    }
-  }
-}
-
-module.exports = checkPropTypes;
-},{"fbjs/lib/invariant":28,"fbjs/lib/warning":30,"./lib/ReactPropTypesSecret":45}],22:[function(require,module,exports) {
+})({13:[function(require,module,exports) {
 /** @license React v16.4.1
  * react.development.js
  *
@@ -452,7 +115,7 @@ module.exports = checkPropTypes;
 
 'use strict';
 
-if ('development' !== "production") {
+if ('production' !== "production") {
   (function () {
     'use strict';
 
@@ -1921,15 +1584,7 @@ if ('development' !== "production") {
     module.exports = react;
   })();
 }
-},{"object-assign":27,"fbjs/lib/invariant":28,"fbjs/lib/emptyObject":29,"fbjs/lib/warning":30,"fbjs/lib/emptyFunction":31,"prop-types/checkPropTypes":32}],18:[function(require,module,exports) {
-'use strict';
-
-if ('development' === 'production') {
-  module.exports = require('./cjs/react.production.min.js');
-} else {
-  module.exports = require('./cjs/react.development.js');
-}
-},{"./cjs/react.development.js":22}],11:[function(require,module,exports) {
+},{}],11:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1938,9 +1593,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require("react");
+var _reactDevelopment = require("react/cjs/react.development.js");
 
-var _react2 = _interopRequireDefault(_react);
+var _reactDevelopment2 = _interopRequireDefault(_reactDevelopment);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1966,196 +1621,202 @@ var EventLogger = function (_React$Component) {
 
 			var logs = this.props.logs;
 
-			return _react2.default.createElement(
+			return _reactDevelopment2.default.createElement(
 				"table",
 				{ className: "logger__table" },
-				_react2.default.createElement(
+				_reactDevelopment2.default.createElement(
 					"caption",
 					null,
-					_react2.default.createElement(
+					_reactDevelopment2.default.createElement(
 						"ul",
 						null,
-						_react2.default.createElement(
+						_reactDevelopment2.default.createElement(
 							"li",
 							null,
 							this.renderBoolean(true),
 							" = true"
 						),
-						_react2.default.createElement(
+						_reactDevelopment2.default.createElement(
 							"li",
 							null,
 							this.renderBoolean(false),
 							" = false"
 						),
-						_react2.default.createElement(
+						_reactDevelopment2.default.createElement(
 							"li",
 							null,
 							this.renderBoolean(undefined),
 							" = null or undefined"
 						),
-						_react2.default.createElement(
+						_reactDevelopment2.default.createElement(
 							"li",
 							null,
-							_react2.default.createElement(
+							_reactDevelopment2.default.createElement(
 								"sup",
 								null,
 								"1"
 							),
 							" refers to properties present in both KeyboardEvent and InputEvent."
 						),
-						_react2.default.createElement(
+						_reactDevelopment2.default.createElement(
 							"li",
 							null,
-							_react2.default.createElement(
+							_reactDevelopment2.default.createElement(
 								"button",
 								{ onClick: this.props.insertSeparator },
 								"Insert separator \u2195"
 							)
 						),
-						_react2.default.createElement(
+						_reactDevelopment2.default.createElement(
 							"li",
 							null,
-							_react2.default.createElement(
+							_reactDevelopment2.default.createElement(
 								"button",
 								{ onClick: this.props.clearLog },
 								"Clear log \u267A"
 							)
+						),
+						_reactDevelopment2.default.createElement(
+							"li",
+							{ className: "react-ver" },
+							"React ",
+							_reactDevelopment2.default.version
 						)
 					)
 				),
-				_react2.default.createElement(
+				_reactDevelopment2.default.createElement(
 					"thead",
 					null,
-					_react2.default.createElement(
+					_reactDevelopment2.default.createElement(
 						"tr",
 						null,
-						_react2.default.createElement(
+						_reactDevelopment2.default.createElement(
 							"th",
 							{ colSpan: "3" },
 							"General"
 						),
-						_react2.default.createElement(
+						_reactDevelopment2.default.createElement(
 							"th",
 							{ colSpan: "3" },
 							"KeyboardEvent"
 						),
-						_react2.default.createElement(
+						_reactDevelopment2.default.createElement(
 							"th",
 							null,
 							"UIEvent",
-							_react2.default.createElement(
+							_reactDevelopment2.default.createElement(
 								"sup",
 								null,
 								"1"
 							)
 						),
-						_react2.default.createElement(
+						_reactDevelopment2.default.createElement(
 							"th",
 							{ colSpan: "2" },
 							"InputEvent"
 						)
 					),
-					_react2.default.createElement(
+					_reactDevelopment2.default.createElement(
 						"tr",
 						null,
-						_react2.default.createElement(
+						_reactDevelopment2.default.createElement(
 							"th",
 							null,
 							"#"
 						),
-						_react2.default.createElement(
+						_reactDevelopment2.default.createElement(
 							"th",
 							null,
 							"constructor"
 						),
-						_react2.default.createElement(
+						_reactDevelopment2.default.createElement(
 							"th",
 							null,
 							"type"
 						),
-						_react2.default.createElement(
+						_reactDevelopment2.default.createElement(
 							"th",
 							null,
 							"key"
 						),
-						_react2.default.createElement(
+						_reactDevelopment2.default.createElement(
 							"th",
 							null,
 							"code"
 						),
-						_react2.default.createElement(
+						_reactDevelopment2.default.createElement(
 							"th",
 							null,
 							"repeat"
 						),
-						_react2.default.createElement(
+						_reactDevelopment2.default.createElement(
 							"th",
 							null,
 							"isComposing"
 						),
-						_react2.default.createElement(
+						_reactDevelopment2.default.createElement(
 							"th",
 							null,
 							"inputType"
 						),
-						_react2.default.createElement(
+						_reactDevelopment2.default.createElement(
 							"th",
 							null,
 							"data"
 						)
 					)
 				),
-				_react2.default.createElement(
+				_reactDevelopment2.default.createElement(
 					"tbody",
 					null,
 					logs.map(function (entry) {
-						return _react2.default.createElement(
+						return _reactDevelopment2.default.createElement(
 							"tr",
 							{
 								key: entry.index,
 								className: 'logger__row logger__row--' + entry.kind + (entry.isNativeCounterpart ? ' logger__row--native-counterpart' : '')
 							},
-							_react2.default.createElement(
+							_reactDevelopment2.default.createElement(
 								"td",
 								null,
 								entry.isNativeCounterpart ? '⮑' : entry.index
 							),
-							_react2.default.createElement(
+							_reactDevelopment2.default.createElement(
 								"td",
 								null,
 								_this2.renderKind(entry.kind, entry.origin)
 							),
-							_react2.default.createElement(
+							_reactDevelopment2.default.createElement(
 								"td",
 								null,
 								_this2.renderValue(entry.type)
 							),
-							_react2.default.createElement(
+							_reactDevelopment2.default.createElement(
 								"td",
 								null,
 								_this2.renderValue(entry.key)
 							),
-							_react2.default.createElement(
+							_reactDevelopment2.default.createElement(
 								"td",
 								null,
 								_this2.renderValue(entry.code)
 							),
-							_react2.default.createElement(
+							_reactDevelopment2.default.createElement(
 								"td",
 								null,
 								_this2.renderBoolean(entry.repeat)
 							),
-							_react2.default.createElement(
+							_reactDevelopment2.default.createElement(
 								"td",
 								null,
 								_this2.renderBoolean(entry.isComposing)
 							),
-							_react2.default.createElement(
+							_reactDevelopment2.default.createElement(
 								"td",
 								null,
 								_this2.renderValue(entry.inputType)
 							),
-							_react2.default.createElement(
+							_reactDevelopment2.default.createElement(
 								"td",
 								null,
 								_this2.renderValue(entry.data)
@@ -2168,10 +1829,10 @@ var EventLogger = function (_React$Component) {
 	}, {
 		key: "renderValue",
 		value: function renderValue(val) {
-			return val ? _react2.default.createElement(
+			return val ? _reactDevelopment2.default.createElement(
 				"pre",
 				null,
-				_react2.default.createElement(
+				_reactDevelopment2.default.createElement(
 					"code",
 					null,
 					val
@@ -2181,15 +1842,15 @@ var EventLogger = function (_React$Component) {
 	}, {
 		key: "renderBoolean",
 		value: function renderBoolean(flag) {
-			return flag === true ? _react2.default.createElement(
+			return flag === true ? _reactDevelopment2.default.createElement(
 				"span",
 				{ className: "bool bool--true", title: "true" },
 				"\u2713"
-			) : flag === false ? _react2.default.createElement(
+			) : flag === false ? _reactDevelopment2.default.createElement(
 				"span",
 				{ className: "bool bool--false", title: "false" },
 				"\xD7"
-			) : _react2.default.createElement(
+			) : _reactDevelopment2.default.createElement(
 				"span",
 				{ className: "bool bool--undefined", title: "null/undefined" },
 				"\u2205"
@@ -2198,15 +1859,15 @@ var EventLogger = function (_React$Component) {
 	}, {
 		key: "renderKind",
 		value: function renderKind(kind, origin) {
-			return kind ? _react2.default.createElement(
+			return kind ? _reactDevelopment2.default.createElement(
 				"pre",
 				null,
-				_react2.default.createElement(
+				_reactDevelopment2.default.createElement(
 					"code",
 					null,
 					kind,
 					" ",
-					origin ? _react2.default.createElement(
+					origin ? _reactDevelopment2.default.createElement(
 						"span",
 						{ className: "origin" },
 						origin
@@ -2217,10 +1878,10 @@ var EventLogger = function (_React$Component) {
 	}]);
 
 	return EventLogger;
-}(_react2.default.Component);
+}(_reactDevelopment2.default.Component);
 
 exports.default = EventLogger;
-},{"react":18}],12:[function(require,module,exports) {
+},{"react/cjs/react.development.js":13}],8:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2229,7 +1890,7 @@ Object.defineProperty(exports, "__esModule", {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var supported_native_events = [
+var supported_events = [
 // KeyboardEvent
 'keydown', 'keypress', 'keyup',
 
@@ -2249,26 +1910,24 @@ var EventListenerRaw = function EventListenerRaw(container, onevent) {
 
 	this.container = container;
 	this.onevent = onevent || function () {};
-	supported_native_events.forEach(function (eventStr) {
+	supported_events.forEach(function (eventStr) {
 		return _this.container.addEventListener(eventStr, _this.onevent);
 	});
 };
 
 exports.default = EventListenerRaw;
-},{}],13:[function(require,module,exports) {
-'use strict';
+},{}],8:[function(require,module,exports) {
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require('react');
+var _reactDevelopment = require("react/cjs/react.development.js");
 
-var _react2 = _interopRequireDefault(_react);
+var _reactDevelopment2 = _interopRequireDefault(_reactDevelopment);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2277,19 +1936,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var supported_synthetic_events = [
-// keyboard events
-'onKeyDown', 'onKeyPress', 'onKeyUp',
-
-// composition events
-'onCompositionStart', 'onCompositionUpdate', 'onCompositionEnd',
-
-// input events
-'onInput', 'onBeforeInput',
-
-// selection events
-'onSelect'];
 
 var EventListenerReact = function (_React$Component) {
 	_inherits(EventListenerReact, _React$Component);
@@ -2301,388 +1947,100 @@ var EventListenerReact = function (_React$Component) {
 	}
 
 	_createClass(EventListenerReact, [{
-		key: 'render',
+		key: "render",
 		value: function render() {
-			var _this2 = this;
+			var onevent = this.props.onevent;
 
-			var event_handlers = {};
-			supported_synthetic_events.forEach(function (eventStr) {
-				event_handlers[eventStr] = function (e) {
-					e.persist();
-					_this2.props.onevent(e, eventStr);
+			var handle_event = function handle_event(callbackName) {
+				return function (syntheticEvent) {
+					syntheticEvent.persist();
+					onevent(syntheticEvent, callbackName);
 				};
-			});
+			};
 
-			return _react2.default.createElement(
-				'div',
-				_extends({ className: 'rte', contentEditable: true, role: 'textbox' }, event_handlers),
-				'Hello World'
+			return _reactDevelopment2.default.createElement(
+				"div",
+				{
+					className: "rte",
+					contentEditable: true,
+					role: "textbox",
+					onKeyDown: handle_event('onKeyDown'),
+					onKeyPress: handle_event('onKeyPress'),
+					onKeyUp: handle_event('onKeyUp'),
+					onCompositionStart: handle_event('onCompositionStart'),
+					onCompositionUpdate: handle_event('onCompositionUpdate'),
+					onCompositionEnd: handle_event('onCompositionEnd'),
+					onBeforeInput: handle_event('onBeforeInput'),
+					onInput: handle_event('onInput'),
+					onSelect: handle_event('onSelect')
+				},
+				"Hello World"
 			);
 		}
 	}]);
 
 	return EventListenerReact;
-}(_react2.default.Component);
+}(_reactDevelopment2.default.Component);
 
 exports.default = EventListenerReact;
-},{"react":18}],39:[function(require,module,exports) {
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-'use strict';
-
-var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
-
-/**
- * Simple, lightweight module assisting with the detection and context of
- * Worker. Helps avoid circular dependencies and allows code to reason about
- * whether or not they are in a Worker, even if they never include the main
- * `ReactWorker` dependency.
- */
-var ExecutionEnvironment = {
-
-  canUseDOM: canUseDOM,
-
-  canUseWorkers: typeof Worker !== 'undefined',
-
-  canUseEventListeners: canUseDOM && !!(window.addEventListener || window.attachEvent),
-
-  canUseViewport: canUseDOM && !!window.screen,
-
-  isInWorker: !canUseDOM // For now, this is true - might change in the future.
-
-};
-
-module.exports = ExecutionEnvironment;
-},{}],40:[function(require,module,exports) {
-'use strict';
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @typechecks
- */
-
-/* eslint-disable fb-www/typeof-undefined */
-
-/**
- * Same as document.activeElement but wraps in a try-catch block. In IE it is
- * not safe to call document.activeElement if there is nothing focused.
- *
- * The activeElement will be null only if the document or document body is not
- * yet defined.
- *
- * @param {?DOMDocument} doc Defaults to current document.
- * @return {?DOMElement}
- */
-function getActiveElement(doc) /*?DOMElement*/{
-  doc = doc || (typeof document !== 'undefined' ? document : undefined);
-  if (typeof doc === 'undefined') {
-    return null;
-  }
-  try {
-    return doc.activeElement || doc.body;
-  } catch (e) {
-    return doc.body;
-  }
-}
-
-module.exports = getActiveElement;
-},{}],41:[function(require,module,exports) {
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @typechecks
- * 
- */
-
-/*eslint-disable no-self-compare */
-
-'use strict';
-
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-/**
- * inlined Object.is polyfill to avoid requiring consumers ship their own
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
- */
-function is(x, y) {
-  // SameValue algorithm
-  if (x === y) {
-    // Steps 1-5, 7-10
-    // Steps 6.b-6.e: +0 != -0
-    // Added the nonzero y check to make Flow happy, but it is redundant
-    return x !== 0 || y !== 0 || 1 / x === 1 / y;
-  } else {
-    // Step 6.a: NaN == NaN
-    return x !== x && y !== y;
-  }
-}
-
-/**
- * Performs equality by iterating through keys on an object and returning false
- * when any key has values which are not strictly equal between the arguments.
- * Returns true when the values of all keys are strictly equal.
- */
-function shallowEqual(objA, objB) {
-  if (is(objA, objB)) {
-    return true;
-  }
-
-  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
-    return false;
-  }
-
-  var keysA = Object.keys(objA);
-  var keysB = Object.keys(objB);
-
-  if (keysA.length !== keysB.length) {
-    return false;
-  }
-
-  // Test for A's keys different from B.
-  for (var i = 0; i < keysA.length; i++) {
-    if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-module.exports = shallowEqual;
-},{}],49:[function(require,module,exports) {
-'use strict';
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @typechecks
- */
-
-/**
- * @param {*} object The object to check.
- * @return {boolean} Whether or not the object is a DOM node.
- */
-function isNode(object) {
-  var doc = object ? object.ownerDocument || object : document;
-  var defaultView = doc.defaultView || window;
-  return !!(object && (typeof defaultView.Node === 'function' ? object instanceof defaultView.Node : typeof object === 'object' && typeof object.nodeType === 'number' && typeof object.nodeName === 'string'));
-}
-
-module.exports = isNode;
-},{}],48:[function(require,module,exports) {
-'use strict';
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @typechecks
- */
-
-var isNode = require('./isNode');
-
-/**
- * @param {*} object The object to check.
- * @return {boolean} Whether or not the object is a DOM text node.
- */
-function isTextNode(object) {
-  return isNode(object) && object.nodeType == 3;
-}
-
-module.exports = isTextNode;
-},{"./isNode":49}],42:[function(require,module,exports) {
-'use strict';
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * 
- */
-
-var isTextNode = require('./isTextNode');
-
-/*eslint-disable no-bitwise */
-
-/**
- * Checks if a given DOM node contains or is another DOM node.
- */
-function containsNode(outerNode, innerNode) {
-  if (!outerNode || !innerNode) {
-    return false;
-  } else if (outerNode === innerNode) {
-    return true;
-  } else if (isTextNode(outerNode)) {
-    return false;
-  } else if (isTextNode(innerNode)) {
-    return containsNode(outerNode, innerNode.parentNode);
-  } else if ('contains' in outerNode) {
-    return outerNode.contains(innerNode);
-  } else if (outerNode.compareDocumentPosition) {
-    return !!(outerNode.compareDocumentPosition(innerNode) & 16);
-  } else {
-    return false;
-  }
-}
-
-module.exports = containsNode;
-},{"./isTextNode":48}],46:[function(require,module,exports) {
-'use strict';
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @typechecks
- */
-
-var _uppercasePattern = /([A-Z])/g;
-
-/**
- * Hyphenates a camelcased string, for example:
- *
- *   > hyphenate('backgroundColor')
- *   < "background-color"
- *
- * For CSS style names, use `hyphenateStyleName` instead which works properly
- * with all vendor prefixes, including `ms`.
- *
- * @param {string} string
- * @return {string}
- */
-function hyphenate(string) {
-  return string.replace(_uppercasePattern, '-$1').toLowerCase();
-}
-
-module.exports = hyphenate;
-},{}],43:[function(require,module,exports) {
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @typechecks
- */
-
-'use strict';
-
-var hyphenate = require('./hyphenate');
-
-var msPattern = /^ms-/;
-
-/**
- * Hyphenates a camelcased CSS property name, for example:
- *
- *   > hyphenateStyleName('backgroundColor')
- *   < "background-color"
- *   > hyphenateStyleName('MozTransition')
- *   < "-moz-transition"
- *   > hyphenateStyleName('msTransition')
- *   < "-ms-transition"
- *
- * As Modernizr suggests (http://modernizr.com/docs/#prefixed), an `ms` prefix
- * is converted to `-ms-`.
- *
- * @param {string} string
- * @return {string}
- */
-function hyphenateStyleName(string) {
-  return hyphenate(string).replace(msPattern, '-ms-');
-}
-
-module.exports = hyphenateStyleName;
-},{"./hyphenate":46}],47:[function(require,module,exports) {
+},{"react/cjs/react.development.js":13}],15:[function(require,module,exports) {
 "use strict";
 
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @typechecks
- */
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var key = 1;
 
-var _hyphenPattern = /-(.)/g;
-
-/**
- * Camelcases a hyphenated string, for example:
- *
- *   > camelize('background-color')
- *   < "backgroundColor"
- *
- * @param {string} string
- * @return {string}
- */
-function camelize(string) {
-  return string.replace(_hyphenPattern, function (_, character) {
-    return character.toUpperCase();
-  });
-}
-
-module.exports = camelize;
-},{}],44:[function(require,module,exports) {
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @typechecks
- */
-
+var getKey = exports.getKey = function getKey() {
+  return key;
+};
+var getNextKey = exports.getNextKey = function getNextKey() {
+  return key++;
+};
+var resetKey = exports.resetKey = function resetKey() {
+  return key = 1;
+};
+},{}],14:[function(require,module,exports) {
 'use strict';
 
-var camelize = require('./camelize');
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
-var msPattern = /^-ms-/;
+var _generateKey = require('./generate-key');
 
-/**
- * Camelcases a hyphenated CSS property name, for example:
- *
- *   > camelizeStyleName('background-color')
- *   < "backgroundColor"
- *   > camelizeStyleName('-moz-transition')
- *   < "MozTransition"
- *   > camelizeStyleName('-ms-transition')
- *   < "msTransition"
- *
- * As Andi Smith suggests
- * (http://www.andismith.com/blog/2012/02/modernizr-prefixed/), an `-ms` prefix
- * is converted to lowercase `ms`.
- *
- * @param {string} string
- * @return {string}
- */
-function camelizeStyleName(string) {
-  return camelize(string.replace(msPattern, 'ms-'));
-}
+exports.default = function (e, callbackName, isNativeCounterpart) {
+	var index = isNativeCounterpart ? '\u2B91 ' + (0, _generateKey.getKey)() : (0, _generateKey.getNextKey)();
 
-module.exports = camelizeStyleName;
-},{"./camelize":47}],24:[function(require,module,exports) {
+	var ret = {
+		kind: e.constructor.name,
+		index: index,
+		isNativeCounterpart: isNativeCounterpart
+	};
+
+	if (callbackName) {
+		ret.origin = callbackName + '()';
+	}
+
+	[
+	// Event interface
+	'type',
+
+	// KeyboardEvent interface
+	'key', 'code', 'repeat',
+
+	// Common to KeyboardEvent and InputEvent
+	'isComposing',
+
+	// InputEvent
+
+	'inputType', 'data'].forEach(function (prop) {
+		return ret[prop] = e[prop];
+	});
+
+	return ret;
+};
+},{"./generate-key":15}],16:[function(require,module,exports) {
 /** @license React v16.4.1
  * react-dom.development.js
  *
@@ -2694,7 +2052,7 @@ module.exports = camelizeStyleName;
 
 'use strict';
 
-if ('development' !== "production") {
+if ('production' !== "production") {
   (function () {
     'use strict';
 
@@ -20088,43 +19446,7 @@ if ('development' !== "production") {
     module.exports = reactDom;
   })();
 }
-},{"fbjs/lib/invariant":28,"react":18,"fbjs/lib/warning":30,"fbjs/lib/ExecutionEnvironment":39,"object-assign":27,"fbjs/lib/emptyFunction":31,"prop-types/checkPropTypes":32,"fbjs/lib/getActiveElement":40,"fbjs/lib/shallowEqual":41,"fbjs/lib/containsNode":42,"fbjs/lib/emptyObject":29,"fbjs/lib/hyphenateStyleName":43,"fbjs/lib/camelizeStyleName":44}],19:[function(require,module,exports) {
-'use strict';
-
-function checkDCE() {
-  /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */
-  if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === 'undefined' || typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== 'function') {
-    return;
-  }
-  if ('development' !== 'production') {
-    // This branch is unreachable because this function is only called
-    // in production, but the condition is true only in development.
-    // Therefore if the branch is still here, dead code elimination wasn't
-    // properly applied.
-    // Don't change the message. React DevTools relies on it. Also make sure
-    // this message doesn't occur elsewhere in this function, or it will cause
-    // a false positive.
-    throw new Error('^_^');
-  }
-  try {
-    // Verify that the code above has been dead code eliminated (DCE'd).
-    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);
-  } catch (err) {
-    // DevTools shouldn't crash React, no matter what.
-    // We should still report in case we break this code.
-    console.error(err);
-  }
-}
-
-if ('development' === 'production') {
-  // DCE check should happen before ReactDOM bundle executes so that
-  // DevTools can report bad minification during injection.
-  checkDCE();
-  module.exports = require('./cjs/react-dom.production.min.js');
-} else {
-  module.exports = require('./cjs/react-dom.development.js');
-}
-},{"./cjs/react-dom.development.js":24}],26:[function(require,module,exports) {
+},{}],18:[function(require,module,exports) {
 var define;
 var global = arguments[3];
 /**
@@ -24931,114 +24253,7 @@ var global = arguments[3];
 
   return Immutable;
 });
-},{}],10:[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _immutable = require('immutable');
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } // Libs
-
-
-var STACK_LIMIT = 100;
-
-var Log = function () {
-	function Log() {
-		_classCallCheck(this, Log);
-
-		this.key = 1;
-		this.logs = new _immutable.Stack();
-	}
-
-	_createClass(Log, [{
-		key: 'getKey',
-		value: function getKey() {
-			return this.key;
-		}
-	}, {
-		key: 'getNextKey',
-		value: function getNextKey() {
-			return this.key++;
-		}
-	}, {
-		key: 'resetKey',
-		value: function resetKey() {
-			this.key = 1;
-		}
-	}, {
-		key: 'serializeEvent',
-		value: function serializeEvent(e, callbackName, isNativeCounterpart) {
-			var index = isNativeCounterpart ? '\u2B91 ' + this.getKey() : this.getNextKey();
-
-			console.log(e.constructor);
-
-			var ret = {
-				kind: e.constructor.name,
-				index: index,
-				isNativeCounterpart: isNativeCounterpart
-			};
-
-			if (callbackName) {
-				ret.origin = callbackName;
-			}
-
-			[
-			// Event interface
-			'type',
-
-			// KeyboardEvent interface
-			'key', 'code', 'repeat',
-
-			// Common to KeyboardEvent and InputEvent
-			'isComposing',
-
-			// InputEvent
-
-			'inputType', 'data'].forEach(function (prop) {
-				return ret[prop] = e[prop];
-			});
-
-			return ret;
-		}
-	}, {
-		key: 'add_log',
-		value: function add_log(item) {
-			this.logs = this.logs.push(item).slice(0, STACK_LIMIT);
-		}
-	}, {
-		key: 'clear_log',
-		value: function clear_log() {
-			this.logs = new _immutable.Stack();
-			this.resetKey();
-		}
-	}, {
-		key: 'log_event',
-		value: function log_event(e, callbackName) {
-			if (e.nativeEvent) {
-				this.add_log(this.serializeEvent(e.nativeEvent, null, true));
-			}
-			this.add_log(this.serializeEvent(e, callbackName));
-		}
-	}, {
-		key: 'insert_separator',
-		value: function insert_separator() {
-			this.add_log({
-				index: this.getNextKey(),
-				kind: 'separator'
-			});
-		}
-	}]);
-
-	return Log;
-}();
-
-exports.default = Log;
-},{"immutable":26}],6:[function(require,module,exports) {
+},{}],4:[function(require,module,exports) {
 'use strict';
 
 var _EventLogger = require('./components/EventLogger');
@@ -25053,48 +24268,58 @@ var _EventListenerReact = require('./components/EventListenerReact');
 
 var _EventListenerReact2 = _interopRequireDefault(_EventListenerReact);
 
-var _react = require('react');
+var _serializeEvent = require('./utils/serialize-event');
 
-var _react2 = _interopRequireDefault(_react);
+var _serializeEvent2 = _interopRequireDefault(_serializeEvent);
 
-var _reactDom = require('react-dom');
+var _generateKey = require('./utils/generate-key');
 
-var _reactDom2 = _interopRequireDefault(_reactDom);
+var _reactDevelopment = require('react/cjs/react.development.js');
 
-var _log = require('./log');
+var _reactDevelopment2 = _interopRequireDefault(_reactDevelopment);
 
-var _log2 = _interopRequireDefault(_log);
+var _reactDomDevelopment = require('react-dom/cjs/react-dom.development.js');
+
+var _reactDomDevelopment2 = _interopRequireDefault(_reactDomDevelopment);
+
+var _immutable = require('immutable');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var log = new _log2.default();
+var logs = new _immutable.Stack();
+var STACK_LIMIT = 100;
+
+var add_log = function add_log(item) {
+	logs = logs.push(item).slice(0, STACK_LIMIT);
+};
+
+var log_event = function log_event(e, callbackName) {
+	if (e.nativeEvent) {
+		add_log((0, _serializeEvent2.default)(e.nativeEvent, null, true));
+	}
+	add_log((0, _serializeEvent2.default)(e, callbackName));
+	render_logs();
+};
+
+var clear_log = function clear_log() {
+	logs = new _immutable.Stack();
+	(0, _generateKey.resetKey)();
+	render_logs();
+};
+
+var insert_separator = function insert_separator() {
+	add_log({ index: (0, _generateKey.getNextKey)(), kind: 'separator' });
+	render_logs();
+};
 
 var logger_el = document.querySelector('.logger');
 
 var render_logs = function render_logs() {
-	_reactDom2.default.render(_react2.default.createElement(_EventLogger2.default, {
-		logs: log.logs,
-		clearLog: function clearLog() {
-			log.clear_log();
-			render_logs();
-		},
-		insertSeparator: function insertSeparator() {
-			log.insert_separator();
-			render_logs();
-		}
-	}), logger_el);
+	_reactDomDevelopment2.default.render(_reactDevelopment2.default.createElement(_EventLogger2.default, { logs: logs, clearLog: clear_log, insertSeparator: insert_separator }), logger_el);
 };
 
-_reactDom2.default.render(_react2.default.createElement(_EventListenerReact2.default, {
-	onevent: function onevent(e, callbackName) {
-		log.log_event(e, callbackName);
-		render_logs();
-	}
-}), document.querySelector('#rte__wrapper--react'));
+_reactDomDevelopment2.default.render(_reactDevelopment2.default.createElement(_EventListenerReact2.default, { onevent: log_event }), document.querySelector('#rte__wrapper--react'));
 
-new _EventListenerRaw2.default(document.querySelector('#rte--raw'), function (e) {
-	log.log_event(e);
-	render_logs();
-});
-},{"./components/EventLogger":11,"./components/EventListenerRaw":12,"./components/EventListenerReact":13,"react":18,"react-dom":19,"./log":10}]},{},[6], null)
-//# sourceMappingURL=/input-methods/src.9bee9cec.map
+new _EventListenerRaw2.default(document.querySelector('#rte--raw'), log_event);
+},{"./components/EventLogger":11,"./components/EventListenerRaw":8,"./components/EventListenerReact":8,"./utils/serialize-event":14,"./utils/generate-key":15,"react/cjs/react.development.js":13,"react-dom/cjs/react-dom.development.js":16,"immutable":18}]},{},[4], null)
+//# sourceMappingURL=/input-methods/src.ed97ef21.map
