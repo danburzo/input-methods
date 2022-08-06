@@ -3,8 +3,8 @@ import EventListenerRaw from './components/EventListenerRaw';
 import EventListenerReact from './components/EventListenerReact';
 import serializeEvent from './utils/serialize-event';
 import { getNextKey, resetKey } from './utils/generate-key';
-import React from 'react/cjs/react.development.js';
-import ReactDOM from 'react-dom/cjs/react-dom.development.js';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { Stack } from 'immutable';
 
 let logs = new Stack();

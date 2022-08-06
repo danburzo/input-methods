@@ -1,4 +1,4 @@
-import React from 'react/cjs/react.development.js';
+import React from 'react';
 
 export default class EventListenerReact extends React.Component {
 	render() {

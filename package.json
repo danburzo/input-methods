@@ -1,27 +1,25 @@
 {
 	"name": "input-methods",
 	"version": "1.0.0",
-	"main": "index.js",
 	"repository": "https://github.com/danburzo/input-methods.git",
 	"author": "Dan Burzo <danburzo@gmail.com>",
 	"license": "MIT",
 	"devDependencies": {
-		"gh-pages": "^1.2.0",
-		"husky": "^0.14.3",
-		"immutable": "^3.8.1",
-		"parcel-bundler": "^1.9.1",
-		"parcel-plugin-clean-dist": "^0.0.6",
-		"prettier": "^1.13.5",
-		"pretty-quick": "^1.6.0",
-		"react": "latest",
-		"react-dom": "latest"
+		"gh-pages": "^4.0.0",
+		"immutable": "^4.1.0",
+		"parcel": "^2.7.0",
+		"prettier": "^2.7.1",
+		"pretty-quick": "^3.1.3",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
 	},
 	"scripts": {
-		"start": "parcel src/index.html --out-dir dist --public-url /input-methods",
-		"build": "parcel build src/index.html --public-url /input-methods --no-minify --out-dir dist",
-		"deploy": "yarn build && gh-pages -d dist",
-		"precommit": "pretty-quick --staged"
+		"prepare": "git config core.hooksPath .git-hooks",
+		"start": "parcel src/index.html --no-hmr --dist-dir dist --public-url /input-methods",
+		"build": "parcel build src/index.html --public-url /input-methods --no-optimize --dist-dir dist",
+		"deploy": "npm run build && gh-pages -d dist"
 	},
+	"browserslist": "> 0.5%, last 2 versions, not dead",
 	"prettier": {
 		"bracketSpacing": true,
 		"semi": true,

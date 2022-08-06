@@ -62,4 +62,4 @@ typings/
 
 dist/
 
-.cache/
+.parcel-cache/

@@ -1,4 +1,4 @@
-import React from 'react/cjs/react.development.js';
+import React from 'react';
 
 export default class EventLogger extends React.Component {
 	render() {
