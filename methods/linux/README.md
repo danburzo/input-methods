@@ -1,3 +1,0 @@
-# Linux Input Methods
-
-TODO
