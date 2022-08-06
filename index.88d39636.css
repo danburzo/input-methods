@@ -1,0 +1,143 @@
+body {
+  margin: 0;
+  padding: 2em;
+  font-family: IBM Plex Sans, sans-serif;
+  line-height: 1.5;
+}
+
+pre, code, kbd {
+  font-family: IBM Plex Mono, monospace;
+}
+
+header {
+  background: #f0f0f0;
+  margin-bottom: 1em;
+  padding: 1em;
+}
+
+header h1 {
+  margin: 0 1em 0 0;
+  font-size: 1em;
+  display: inline-block;
+}
+
+header nav {
+  display: inline-block;
+}
+
+header nav ul, table caption ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+header nav li, table caption li {
+  margin: 0 1em;
+  display: inline-block;
+}
+
+table caption {
+  text-align: left;
+  padding: 1em 0;
+}
+
+.rte {
+  -webkit-user-modify: read-write-plaintext-only;
+  border: 1px solid #d3d3d3;
+  outline: none;
+  margin: 1em 0;
+  padding: .5em;
+}
+
+.rte:focus {
+  border-color: #00f;
+}
+
+.logger__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .8em;
+}
+
+.logger__table th, .logger__table td {
+  text-align: left;
+  padding: .2em .3em;
+}
+
+.logger__table th {
+  border: 1px solid #ddd;
+}
+
+.logger__row {
+  border-color: #ddd;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+
+.logger__row--KeyboardEvent, .logger__row--SyntheticKeyboardEvent {
+  background-color: #e0f2f1;
+  border-color: #aebfbe;
+}
+
+.logger__row--InputEvent, .logger__row--SyntheticInputEvent {
+  background-color: #f9fbe7;
+  border-color: #c6c8b5;
+}
+
+.logger__row--CompositionEvent, .logger__row--SyntheticCompositionEvent {
+  background-color: #fff3e0;
+  border-color: #ccc0ae;
+}
+
+.logger__row--native-counterpart {
+  color: #777;
+  background-color: #fff;
+  font-size: .9em;
+}
+
+.logger__row--separator {
+  background-color: #eee;
+}
+
+.logger__row--separator * {
+  color: #999 !important;
+}
+
+.logger__table pre, .logger__table code, .logger__table kbd {
+  margin: 0;
+}
+
+.bool--true {
+  color: green;
+}
+
+.bool--false {
+  color: red;
+  font-size: 1.2em;
+}
+
+.bool--undefined {
+  color: orange;
+}
+
+.origin {
+  color: #777;
+  font-size: .8em;
+}
+
+.flex__container {
+  width: 100%;
+  display: flex;
+}
+
+.flex__item {
+  flex: 1 0 1px;
+  margin: 0 1em;
+}
+
+.react-ver {
+  color: gray;
+  float: right;
+}
+
+/*# sourceMappingURL=index.88d39636.css.map */
