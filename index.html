@@ -1,32 +1,194 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>UI Events Viewer</title>
 
-		<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans:400,400i,700&amp;subset=latin-ext" rel="stylesheet">
+		<style>* {
+  box-sizing: border-box;
+}
 
-		<link rel="stylesheet" type="text/css" href="/input-methods/index.8bab095f.css">
+html {
+  --font-mono: Menlo, monospace;
+  --font-main: sans-serif;
+  --color-secondary: #7f6f6f;
+  --color-hl: gold;
+  --color-fg: #2f2020;
+  --color-bg: #fff8f0;
+  --color-bg-darker: #f0eae3;
+  --color-accent: #0a807f;
+  --color-accent2: #7c291d;
+  --color-accent3: #266ebc;
+  --color-accent4: #c42448;
+  -webkit-text-size-adjust: none;
+}
 
-		<meta property="og:locale" content="ro_RO">
-		<meta property="og:site_name" content="@danburzo on GitHub">
-		<meta property="og:title" content="UI Events Viewer">
-		<meta property="og:url" content="https://danburzo.github.io/input-methods/">
-		<meta property="og:type" content="website">
-		<meta property="og:description" content="A DOM UI Event inspector for contenteditable">
-		<meta property="og:image" content="/input-methods/static/cover.png">
+:focus {
+  outline-offset: 1px;
+}
 
-		<meta name="twitter:image" content="/input-methods/static/cover.png">
-		<meta name="twitter:title" content="UI Events Viewer">
-		<meta name="twitter:url" content="https://danburzo.github.io/input-methods/">
-		<meta name="twitter:description" content="A DOM UI Event inspector for contenteditable">
-		<meta name="twitter:card" content="summary_large_image">
+body {
+  line-height: 1.5;
+  font-family: var(--font-main);
+  margin: 0;
+  padding: 2em;
+}
+
+pre, code, kbd {
+  font-family: var(--font-mono);
+}
+
+header {
+  background: #f0f0f0;
+  margin-bottom: 1em;
+  padding: 1em;
+}
+
+header h1 {
+  margin: 0 1em 0 0;
+  font-size: 1em;
+  display: inline-block;
+}
+
+header nav {
+  display: inline-block;
+}
+
+header nav ul, table caption ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+header nav li, table caption li {
+  margin: 0 1em;
+  display: inline-block;
+}
+
+table caption {
+  text-align: left;
+  padding: 1em 0;
+}
+
+.rte {
+  -webkit-user-modify: read-write-plaintext-only;
+  border: 1px solid #d3d3d3;
+  outline: none;
+  margin: 1em 0;
+  padding: .5em;
+}
+
+.rte:focus {
+  border-color: #00f;
+}
+
+.logger__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .8em;
+}
+
+.logger__table th, .logger__table td {
+  text-align: left;
+  padding: .2em .3em;
+}
+
+.logger__table th {
+  border: 1px solid #ddd;
+}
+
+.logger__row {
+  border-color: #ddd;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+
+.logger__row--KeyboardEvent, .logger__row--SyntheticKeyboardEvent {
+  background-color: #e0f2f1;
+  border-color: #aebfbe;
+}
+
+.logger__row--InputEvent, .logger__row--SyntheticInputEvent {
+  background-color: #f9fbe7;
+  border-color: #c6c8b5;
+}
+
+.logger__row--CompositionEvent, .logger__row--SyntheticCompositionEvent {
+  background-color: #fff3e0;
+  border-color: #ccc0ae;
+}
+
+.logger__row--native-counterpart {
+  color: #777;
+  background-color: #fff;
+  font-size: .9em;
+}
+
+.logger__row--separator {
+  background-color: #eee;
+}
+
+.logger__row--separator * {
+  color: #999 !important;
+}
+
+.logger__table pre, .logger__table code, .logger__table kbd {
+  margin: 0;
+}
+
+.bool--true {
+  color: green;
+}
+
+.bool--false {
+  color: red;
+  font-size: 1.2em;
+}
+
+.bool--undefined {
+  color: orange;
+}
+
+.origin {
+  color: #777;
+  font-size: .8em;
+}
+
+.flex__container {
+  width: 100%;
+  display: flex;
+}
+
+.flex__item {
+  flex: 1 0 1px;
+  margin: 0 1em;
+}
+
+.react-ver {
+  color: gray;
+  float: right;
+}
+
+.badge {
+  background: #fc0;
+  padding: .2em .4em;
+  font-weight: bold;
+  display: inline-block;
+}
+
+</style>
 	</head>
 	<body>
 		<header>
 			<h1>UI Events Viewer</h1>
 			<nav>
 				<ul>
-					<li><a href="https://danburzo.ro/input-methods/">Input Methods (WIP)</a></li>
+					<li>
+						<span class="badge">Updated &rarr;</span>
+						<a href="https://danburzo.ro/ui-events-viewer/">UI Events Viewer</a>
+					</li>
+					<li><a href="https://danburzo.ro/input-methods/">Input Methods</a></li>
 					<li>
 						<a href="https://github.com/danburzo/input-methods">Source code on GitHub</a>
 					</li>
@@ -57,6 +219,6 @@
 
 		<div class="logger"></div>
 
-		<script type="module" src="/input-methods/index.afba2cf4.js"></script><script src="/input-methods/index.d06ae5b2.js" nomodule="" defer=""></script>
+		<script type="module" src="/input-methods/index.1a43cca6.js"></script>
 	</body>
 </html>

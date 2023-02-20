@@ -1,12 +1,12 @@
 body {
   margin: 0;
   padding: 2em;
-  font-family: IBM Plex Sans, sans-serif;
+  font-family: sans-serif;
   line-height: 1.5;
 }
 
 pre, code, kbd {
-  font-family: IBM Plex Mono, monospace;
+  font-family: Menlo, monospace;
 }
 
 header {
