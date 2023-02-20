@@ -1,10 +1,19 @@
-# Input methods
+# UI Events Viewer / Input methods
+
+**Note:** This project is in maintenance mode and will not be receiving further updates.
+
+Please refer to the updated resources:
+
+-   The catalog of input methods is being maintained at [**danburzo.ro/input-methods/**](https://danburzo.ro/input-methods/).
+-   UI Events Viewer has been rewritten in vanilla JavaScript here: [**danburzo.ro/ui-events-viewer/**](https://danburzo.ro/ui-events-viewer/). Source code is inlined in the HTML.
+
+---
 
 ## Introduction
 
 The purpose of this repository is to document various input methods / IMEs, how to install them, and the UI Events they trigger in the browser.
 
-**UI Event Viewer**, available here:
+**UI Events Viewer**, available here:
 
 https://danburzo.github.io/input-methods/index.html
 

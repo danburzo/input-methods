@@ -1,35 +1,214 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>UI Events Viewer</title>
 
-		<link
-			href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans:400,400i,700&amp;subset=latin-ext"
-			rel="stylesheet"
-		/>
+		<style type="text/css">
+			* {
+				box-sizing: border-box;
+			}
 
-		<link rel="stylesheet" type="text/css" href="./static/style.css" />
+			html {
+				--font-mono: Menlo, monospace;
+				--font-main: sans-serif;
+				--color-secondary: #7f6f6f;
+				--color-hl: #ffd700;
+				--color-fg: #2f2020;
+				--color-bg: #fff8f0;
+				--color-bg-darker: #f0eae3;
+				--color-accent: #0a807f;
+				--color-accent2: #7c291d;
+				--color-accent3: #266ebc;
+				--color-accent4: #c42448;
 
-		<meta property="og:locale" content="ro_RO" />
-		<meta property="og:site_name" content="@danburzo on GitHub" />
-		<meta property="og:title" content="UI Events Viewer" />
-		<meta property="og:url" content="https://danburzo.github.io/input-methods/" />
-		<meta property="og:type" content="website" />
-		<meta property="og:description" content="A DOM UI Event inspector for contenteditable" />
-		<meta property="og:image" content="./static/cover.png" />
+				-webkit-text-size-adjust: none;
+			}
 
-		<meta name="twitter:image" content="./static/cover.png" />
-		<meta name="twitter:title" content="UI Events Viewer" />
-		<meta name="twitter:url" content="https://danburzo.github.io/input-methods/" />
-		<meta name="twitter:description" content="A DOM UI Event inspector for contenteditable" />
-		<meta name="twitter:card" content="summary_large_image" />
+			:focus {
+				outline-offset: 1px;
+			}
+
+			body {
+				line-height: 1.5;
+				font-family: var(--font-main);
+				margin: 0;
+				padding: 2em;
+			}
+
+			pre,
+			code,
+			kbd {
+				font-family: var(--font-mono);
+			}
+
+			header {
+				background: #f0f0f0;
+				padding: 1em;
+				margin-bottom: 1em;
+			}
+
+			header h1 {
+				margin: 0 1em 0 0;
+				display: inline-block;
+				font-size: 1em;
+			}
+
+			header nav {
+				display: inline-block;
+			}
+
+			header nav ul,
+			table caption ul {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+
+			header nav li,
+			table caption li {
+				display: inline-block;
+				margin: 0 1em;
+			}
+
+			table caption {
+				text-align: left;
+				padding: 1em 0;
+			}
+
+			.rte {
+				-webkit-user-modify: read-write-plaintext-only;
+				border: 1px solid lightGray;
+				padding: 0.5em;
+				outline: none;
+				margin: 1em 0;
+			}
+
+			.rte:focus {
+				border-color: blue;
+			}
+
+			.logger {
+			}
+
+			.logger__table {
+				width: 100%;
+				border-collapse: collapse;
+				font-size: 0.8em;
+			}
+
+			.logger__table th,
+			.logger__table td {
+				text-align: left;
+				padding: 0.2em 0.3em;
+			}
+
+			.logger__table th {
+				border: 1px solid #ddd;
+			}
+
+			.logger__row {
+				border-bottom-width: 1px;
+				border-bottom-style: solid;
+				border-color: #ddd;
+			}
+
+			.logger__row--KeyboardEvent,
+			.logger__row--SyntheticKeyboardEvent {
+				background-color: #e0f2f1; /* teal */
+				border-color: #aebfbe;
+			}
+
+			.logger__row--InputEvent,
+			.logger__row--SyntheticInputEvent {
+				background-color: #f9fbe7; /* lime */
+				border-color: #c6c8b5;
+			}
+
+			.logger__row--CompositionEvent,
+			.logger__row--SyntheticCompositionEvent {
+				background-color: #fff3e0; /* orange */
+				border-color: #ccc0ae;
+			}
+
+			.logger__row--native-counterpart {
+				font-size: 0.9em;
+				color: #777;
+				background-color: #fff;
+			}
+
+			.logger__row--separator {
+				background-color: #eee;
+			}
+
+			.logger__row--separator * {
+				color: #999 !important;
+			}
+
+			.logger__table pre,
+			.logger__table code,
+			.logger__table kbd {
+				margin: 0;
+			}
+
+			.bool {
+			}
+
+			.bool--true {
+				color: green;
+			}
+
+			.bool--false {
+				color: red;
+				font-size: 1.2em;
+			}
+
+			.bool--undefined {
+				color: orange;
+			}
+
+			.origin {
+				font-size: 0.8em;
+				color: #777;
+			}
+
+			.flex__container {
+				display: flex;
+				width: 100%;
+			}
+
+			.flex__item {
+				flex-grow: 1;
+				flex-shrink: 0;
+				flex-basis: 1;
+				margin: 0 1em;
+			}
+
+			.react-ver {
+				color: #808080;
+				float: right;
+			}
+
+			.badge {
+				font-weight: bold;
+				background: #fc0;
+				font-weight: bold;
+				display: inline-block;
+				padding: 0.2em 0.4em;
+			}
+		</style>
 	</head>
 	<body>
 		<header>
 			<h1>UI Events Viewer</h1>
 			<nav>
 				<ul>
-					<li><a href="https://danburzo.ro/input-methods/">Input Methods (WIP)</a></li>
+					<li>
+						<span class="badge">Updated &rarr;</span>
+						<a href="https://danburzo.ro/ui-events-viewer/">UI Events Viewer</a>
+					</li>
+					<li><a href="https://danburzo.ro/input-methods/">Input Methods</a></li>
 					<li>
 						<a href="https://github.com/danburzo/input-methods"
 							>Source code on GitHub</a
